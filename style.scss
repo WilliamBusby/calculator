@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, sans-serif;
+  font-size: min(80px,max(5vw,20px));
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 0.8fr 4fr;
+  // padding: 5px;
+  background-color: black;
+
+  #output {
+    &__number {
+      font-size: 150px;
+    }
+    color: white;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: min(60vw,700px);
+    height: 20%;
+  }
+
+  #buttons {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "remove plusMinus percent divide"
+    "seven eight nine multiply"
+    "four five six minus"
+    "one two three plus"
+    "zero zero decimal equal";
+    gap: 1vw;
+    align-items: center;
+    width: min(60vw, 700px);
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+
+    .lightgrey {
+      border-radius: 50%;
+      background-color: lightgray;
+      color: black;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .functions {
+      border-radius: 50%;
+      background-color: orange;
+      color: white;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .numbers {
+      border-radius: 50%;
+      border: 0px;
+      background-color: gray;
+      color: white;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #remove {
+      grid-area: remove;
+    }
+
+    #plusMinus {
+      grid-area: plusMinus;
+    }
+
+    #percent {
+      grid-area: percent;
+    }
+
+    #divide {
+      grid-area: divide;
+    }
+
+    #multiply {
+      grid-area: multiply;
+    }
+
+    #minus {
+      grid-area: minus;
+    }
+
+    #plus {
+      grid-area: plus;
+    }
+
+    #equal {
+      grid-area: equal;
+      border-radius: 50%;
+      background-color: orange;
+      color: white;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #nine {
+      grid-area: nine;
+    }
+
+    #eight {
+      grid-area: eight;
+    }
+
+    #seven {
+      grid-area: seven;
+    }
+
+    #six {
+      grid-area: six;
+    }
+
+    #five {
+      grid-area: five;
+    }
+
+    #four {
+      grid-area: four;
+    }
+
+    #three {
+      grid-area: three;
+    }
+
+    #two {
+      grid-area: two;
+    }
+
+    #one {
+      grid-area: one;
+    }
+    
+    #zero {
+      grid-area: zero;
+      width: 350px;
+      text-align: left;
+      padding-left: 60px;
+      border-radius: 80px;
+    }
+
+    #decimal {
+      grid-area: decimal;
+    }
+  }
+
+}

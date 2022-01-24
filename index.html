@@ -5,36 +5,37 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculator</title>
-  <script src="app.js"></script>
+  <script src="app.js" async defer></script>
   <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body>
   <!-- Output screen -->
   <section id="output">
+    <div id="output__number">1,984</div>
   </section>
   <section id="buttons">
   <!-- Clear function, +/- and % -->
-    <div class="lightgrey" id="clear"><button></button></div>
-    <div class="lightgrey" id="plusMinus"><button></button></div>
-    <div class="lightgrey" id="percent"><button></button></div>
+    <button class="lightgrey" id="remove">CE</button>
+    <button class="lightgrey" id="plusMinus">+/-</button>
+    <button class="lightgrey" id="percent">%</button>
   <!-- Functions -->
-    <div class="functions" id="divide"><button></button></div>
-    <div class="functions" id="multiply"><button></button></div>
-    <div class="functions" id="minus"><button></button></div>
-    <div class="functions" id="plus"><button></button></div>
-    <div class="functions" id="equal"><button></button></div>
+    <button class="functions" id="divide">÷</button>
+    <button class="functions" id="multiply">×</button>
+    <button class="functions" id="minus">-</button>
+    <button class="functions" id="plus">+</button>
+    <button id="equal">=</button>
   <!-- Numbers -->
-    <div class="numbers" id="9"><button></button></div>
-    <div class="numbers" id="8"><button></button></div>
-    <div class="numbers" id="7"><button></button></div>
-    <div class="numbers" id="6"><button></button></div>
-    <div class="numbers" id="5"><button></button></div>
-    <div class="numbers" id="4"><button></button></div>
-    <div class="numbers" id="3"><button></button></div>
-    <div class="numbers" id="2"><button></button></div>
-    <div class="numbers" id="1"><button></button></div>
-    <div class="numbers" id="0"><button></button></div>
-    <div class="numbers" id="decimal"><button></button></div>
+    <button class="numbers" id="nine">9</button>
+    <button class="numbers" id="eight">8</button>
+    <button class="numbers" id="seven">7</button>
+    <button class="numbers" id="six">6</button>
+    <button class="numbers" id="five">5</button>
+    <button class="numbers" id="four">4</button>
+    <button class="numbers" id="three">3</button>
+    <button class="numbers" id="two">2</button>
+    <button class="numbers" id="one">1</button>
+    <button class="numbers" id="zero">0</button>
+    <button class="numbers" id="decimal">.</button>
   </section>
 </body>
 </html>
