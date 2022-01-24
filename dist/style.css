@@ -2,44 +2,66 @@
   margin: 0;
   padding: 0;
   font-family: Helvetica, sans-serif;
+  font-size: min(80px, max(5vw, 20px));
 }
 
 body {
+  height: 100vh;
+  width: 100vw;
   display: grid;
-  grid-template-rows: 1fr 4fr;
-  padding: 10px;
+  grid-template-rows: 0.8fr 4fr;
+  background-color: black;
 }
 body #output {
-  font-size: 15vw;
-  height: 15vw;
+  color: white;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  width: min(60vw, 700px);
+  height: 20%;
+}
+body #output__number {
+  font-size: 150px;
 }
 body #buttons {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
-  gap: 10px;
+  gap: 1vw;
+  align-items: center;
+  width: min(60vw, 700px);
+  height: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 body #buttons .lightgrey {
   border-radius: 50%;
   background-color: lightgray;
   color: black;
   width: 150px;
-  height: 150px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 body #buttons .functions {
   border-radius: 50%;
   background-color: orange;
   color: white;
   width: 150px;
-  height: 150px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 body #buttons .numbers {
   border-radius: 50%;
-  background-color: #1a1919;
-  color: black;
+  border: 0px;
+  background-color: gray;
+  color: white;
   width: 150px;
-  height: 150px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 body #buttons #remove {
   grid-area: remove;
@@ -64,6 +86,13 @@ body #buttons #plus {
 }
 body #buttons #equal {
   grid-area: equal;
+  border-radius: 50%;
+  background-color: orange;
+  color: white;
+  width: 150px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 body #buttons #nine {
   grid-area: nine;
@@ -95,6 +124,9 @@ body #buttons #one {
 body #buttons #zero {
   grid-area: zero;
   width: 350px;
+  text-align: left;
+  padding-left: 60px;
+  border-radius: 80px;
 }
 body #buttons #decimal {
   grid-area: decimal;

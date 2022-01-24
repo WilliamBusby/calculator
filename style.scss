@@ -2,16 +2,27 @@
   margin: 0;
   padding: 0;
   font-family: Helvetica, sans-serif;
+  font-size: min(80px,max(5vw,20px));
 }
 
 body {
+  height: 100vh;
+  width: 100vw;
   display: grid;
-  grid-template-rows: 1fr 4fr;
-  padding: 10px;
+  grid-template-rows: 0.8fr 4fr;
+  // padding: 5px;
+  background-color: black;
 
   #output {
-    font-size: 15vw;
-    height: 15vw;
+    &__number {
+      font-size: 150px;
+    }
+    color: white;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: min(60vw,700px);
+    height: 20%;
   }
 
   #buttons {
@@ -24,14 +35,21 @@ body {
     "four five six minus"
     "one two three plus"
     "zero zero decimal equal";
-    gap: 10px;
+    gap: 1vw;
+    align-items: center;
+    width: min(60vw, 700px);
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
 
     .lightgrey {
       border-radius: 50%;
       background-color: lightgray;
       color: black;
       width: 150px;
-      height: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
     }
 
     .functions {
@@ -39,15 +57,20 @@ body {
       background-color: orange;
       color: white;
       width: 150px;
-      height: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
     }
 
     .numbers {
       border-radius: 50%;
-      background-color: rgb(26, 25, 25);
-      color: black;
+      border: 0px;
+      background-color: gray;
+      color: white;
       width: 150px;
-      height: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
     }
 
     #remove {
@@ -80,6 +103,13 @@ body {
 
     #equal {
       grid-area: equal;
+      border-radius: 50%;
+      background-color: orange;
+      color: white;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      text-align: center;
     }
 
     #nine {
@@ -121,6 +151,9 @@ body {
     #zero {
       grid-area: zero;
       width: 350px;
+      text-align: left;
+      padding-left: 60px;
+      border-radius: 80px;
     }
 
     #decimal {
