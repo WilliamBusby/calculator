@@ -1,4 +1,4 @@
-let currentNumber;
+let currentNumber = "";
 let numberVals = [];
 let operationVals = [];
 let outputNumber;
@@ -10,17 +10,20 @@ const functionButtons = document.getElementsByClassName("functions");
 const functionButtonsArr = [...functionButtons];
 
 const equalsButton = document.getElementById("equal");
-
+let outputHTMLNumber = document.getElementById("output__number");
 const clearButton = document.getElementById("remove");
 
 for (let i = 0; i < numberButtonsArr.length; i++) {
   numberButtonsArr[i].addEventListener("click", (event) => {
     event.preventDefault();
-    currentNumber += numberButtonsArr[i].innerHTML;
-    // console.log(currentNumber)
+    if(currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
+      alert("You can't have two decimal points in one number!")
+    } else {
+      currentNumber += numberButtonsArr[i].innerHTML;
+      document.getElementById("output__number").innerHTML = currentNumber;
+    }
   })
 }
-
 
 for (let i = 0; i < functionButtonsArr.length; i++) {
   functionButtonsArr[i].addEventListener("click", (event) => {
@@ -34,6 +37,7 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
 equalsButton.addEventListener("click", (event) => {
   event.preventDefault();
   calculate();
+  document.getElementById("output__number").innerHTML = outputNumber;
 })
 
 const calculate = () => {
@@ -48,16 +52,23 @@ const calculate = () => {
       outputNumber = outputNumber / Number(numberVals[i]);
     } else if(operationVals[i-1] == "*") {
       outputNumber = outputNumber * Number(numberVals[i]);
+    } else if(operationVals[i-1] == "/" && numberVals[i] == "0") {
+      alert("Can't divide by 0!");
+      outputNumber = 0;
+      currentNumber = "";
+      numberVals = [];
+      operationVals = [];
+      return outputNumber;
     }
   }
   currentNumber = "";
   numberVals = [];
   operationVals = [];
-  console.log(outputNumber)
   return outputNumber;
 }
 
 clearButton.addEventListener("click", (event) => {
   event.preventDefault();
   currentNumber = "";
+  document.getElementById("output__number").innerHTML = 0;
 })

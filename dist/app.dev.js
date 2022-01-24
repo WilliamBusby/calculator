@@ -8,7 +8,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var currentNumber;
+var currentNumber = "";
 var numberVals = [];
 var operationVals = [];
 var outputNumber;
@@ -21,12 +21,19 @@ var functionButtons = document.getElementsByClassName("functions");
 var functionButtonsArr = _toConsumableArray(functionButtons);
 
 var equalsButton = document.getElementById("equal");
+var outputHTMLNumber = document.getElementById("output__number");
 var clearButton = document.getElementById("remove");
 
 var _loop = function _loop(i) {
   numberButtonsArr[i].addEventListener("click", function (event) {
     event.preventDefault();
-    currentNumber += numberButtonsArr[i].innerHTML; // console.log(currentNumber)
+
+    if (currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
+      alert("You can't have two decimal points in one number!");
+    } else {
+      currentNumber += numberButtonsArr[i].innerHTML;
+      document.getElementById("output__number").innerHTML = currentNumber;
+    }
   });
 };
 
@@ -50,6 +57,7 @@ for (var _i = 0; _i < functionButtonsArr.length; _i++) {
 equalsButton.addEventListener("click", function (event) {
   event.preventDefault();
   calculate();
+  document.getElementById("output__number").innerHTML = outputNumber;
 });
 
 var calculate = function calculate() {
@@ -65,17 +73,24 @@ var calculate = function calculate() {
       outputNumber = outputNumber / Number(numberVals[_i2]);
     } else if (operationVals[_i2 - 1] == "*") {
       outputNumber = outputNumber * Number(numberVals[_i2]);
+    } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] == "0") {
+      alert("Can't divide by 0!");
+      outputNumber = 0;
+      currentNumber = "";
+      numberVals = [];
+      operationVals = [];
+      return outputNumber;
     }
   }
 
   currentNumber = "";
   numberVals = [];
   operationVals = [];
-  console.log(outputNumber);
   return outputNumber;
 };
 
 clearButton.addEventListener("click", function (event) {
   event.preventDefault();
   currentNumber = "";
+  document.getElementById("output__number").innerHTML = 0;
 });
