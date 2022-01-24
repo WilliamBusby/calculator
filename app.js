@@ -17,7 +17,7 @@ for (let i = 0; i < numberButtonsArr.length; i++) {
   numberButtonsArr[i].addEventListener("click", (event) => {
     event.preventDefault();
     currentNumber += numberButtonsArr[i].innerHTML;
-    console.log(currentNumber)
+    // console.log(currentNumber)
   })
 }
 
@@ -27,7 +27,7 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
     event.preventDefault();
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[i].innerHTML);
-    currentNumber = 0;
+    currentNumber = "";
   })
 }
 

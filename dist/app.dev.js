@@ -26,8 +26,7 @@ var clearButton = document.getElementById("remove");
 var _loop = function _loop(i) {
   numberButtonsArr[i].addEventListener("click", function (event) {
     event.preventDefault();
-    currentNumber += numberButtonsArr[i].innerHTML;
-    console.log(currentNumber);
+    currentNumber += numberButtonsArr[i].innerHTML; // console.log(currentNumber)
   });
 };
 
@@ -40,7 +39,7 @@ var _loop2 = function _loop2(_i) {
     event.preventDefault();
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[_i].innerHTML);
-    currentNumber = 0;
+    currentNumber = "";
   });
 };
 
