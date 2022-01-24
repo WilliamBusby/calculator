@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, sans-serif;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  padding: 10px;
+}
+body #output {
+  font-size: 15vw;
+  height: 15vw;
+}
+body #buttons {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
+  gap: 10px;
+}
+body #buttons .lightgrey {
+  border-radius: 50%;
+  background-color: lightgray;
+  color: black;
+  width: 150px;
+  height: 150px;
+}
+body #buttons .functions {
+  border-radius: 50%;
+  background-color: orange;
+  color: white;
+  width: 150px;
+  height: 150px;
+}
+body #buttons .numbers {
+  border-radius: 50%;
+  background-color: #1a1919;
+  color: black;
+  width: 150px;
+  height: 150px;
+}
+body #buttons #remove {
+  grid-area: remove;
+}
+body #buttons #plusMinus {
+  grid-area: plusMinus;
+}
+body #buttons #percent {
+  grid-area: percent;
+}
+body #buttons #divide {
+  grid-area: divide;
+}
+body #buttons #multiply {
+  grid-area: multiply;
+}
+body #buttons #minus {
+  grid-area: minus;
+}
+body #buttons #plus {
+  grid-area: plus;
+}
+body #buttons #equal {
+  grid-area: equal;
+}
+body #buttons #nine {
+  grid-area: nine;
+}
+body #buttons #eight {
+  grid-area: eight;
+}
+body #buttons #seven {
+  grid-area: seven;
+}
+body #buttons #six {
+  grid-area: six;
+}
+body #buttons #five {
+  grid-area: five;
+}
+body #buttons #four {
+  grid-area: four;
+}
+body #buttons #three {
+  grid-area: three;
+}
+body #buttons #two {
+  grid-area: two;
+}
+body #buttons #one {
+  grid-area: one;
+}
+body #buttons #zero {
+  grid-area: zero;
+  width: 350px;
+}
+body #buttons #decimal {
+  grid-area: decimal;
+}
