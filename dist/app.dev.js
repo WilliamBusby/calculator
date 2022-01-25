@@ -17,11 +17,13 @@ var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbe
 
 var functionButtonsArr = _toConsumableArray(document.getElementsByClassName("functions"));
 
-var allButtons = document.getElementById("buttons");
+var allButtons = document.querySelectorAll("button");
 var equalsButton = document.getElementById("equal");
 var clearButton = document.getElementById("remove");
 var plusMinus = document.getElementById("plusMinus");
 var percent = document.getElementById("percent");
+
+var additionalButtons = _toConsumableArray(document.getElementsByClassName("lightgrey"));
 
 var displayOutput = function displayOutput(numberToDisplay) {
   document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
@@ -41,37 +43,39 @@ var clearValues = function clearValues(valuesToClear) {
       outputNumber = 0;
     }
   }
-}; // allButtons.addEventListener("click", (event) => {
-//   const eachButton = event.target;
-//   eachButton.preventDefault();
-// })
+};
 
+for (var i = 0; i < allButtons.length; i++) {
+  allButtons[i].addEventListener("click", function (event) {
+    event.preventDefault();
+  });
+}
 
-var _loop = function _loop(i) {
-  numberButtonsArr[i].addEventListener("click", function (event) {
-    if (currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
+var _loop = function _loop(_i) {
+  numberButtonsArr[_i].addEventListener("click", function (event) {
+    if (currentNumber.includes(".") && numberButtonsArr[_i].innerHTML == ".") {
       alert("You can't have two decimal points in one number!");
     } else {
-      currentNumber += numberButtonsArr[i].innerHTML;
+      currentNumber += numberButtonsArr[_i].innerHTML;
       displayOutput(currentNumber);
     }
   });
 };
 
-for (var i = 0; i < numberButtonsArr.length; i++) {
-  _loop(i);
+for (var _i = 0; _i < numberButtonsArr.length; _i++) {
+  _loop(_i);
 }
 
-var _loop2 = function _loop2(_i) {
-  functionButtonsArr[_i].addEventListener("click", function (event) {
+var _loop2 = function _loop2(_i2) {
+  functionButtonsArr[_i2].addEventListener("click", function (event) {
     numberVals.push(currentNumber);
-    operationVals.push(functionButtonsArr[_i].innerHTML);
-    currentNumber = "";
+    operationVals.push(functionButtonsArr[_i2].innerHTML);
+    clearValues(currentNumber);
   });
 };
 
-for (var _i = 0; _i < functionButtonsArr.length; _i++) {
-  _loop2(_i);
+for (var _i2 = 0; _i2 < functionButtonsArr.length; _i2++) {
+  _loop2(_i2);
 }
 
 equalsButton.addEventListener("click", function (event) {
@@ -83,34 +87,38 @@ var calculate = function calculate() {
   numberVals.push(currentNumber);
   outputNumber = Number(numberVals[0]);
 
-  for (var _i2 = 1; _i2 < numberVals.length; _i2++) {
-    if (operationVals[_i2 - 1] == "+") {
-      outputNumber += Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "-") {
-      outputNumber = outputNumber - Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] != "0") {
-      outputNumber = outputNumber / Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "*") {
-      outputNumber = outputNumber * Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] == "0") {
+  for (var _i3 = 1; _i3 < numberVals.length; _i3++) {
+    if (operationVals[_i3 - 1] == "+") {
+      outputNumber += Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "-") {
+      outputNumber = outputNumber - Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] != "0") {
+      outputNumber = outputNumber / Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "*") {
+      outputNumber = outputNumber * Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] == "0") {
       alert("Can't divide by 0!");
       clearValues([outputNumber, currentNumber, numberVals, operationVals]);
-      return outputNumber;
     }
   }
 
-  clearValues([currentNumber, numberVals, operationVals]); // return outputNumber;
+  clearValues([currentNumber, numberVals, operationVals]);
 };
 
-clearButton.addEventListener("click", function (event) {
-  clearValues([currentNumber, outputNumber, numberVals, operationVals]);
-  displayOutput(0);
-});
-percent.addEventListener("click", function (event) {
-  outputNumber = document.getElementById("output__number").innerHTML * 0.01;
-  displayOutput(outputNumber);
-});
-plusMinus.addEventListener("click", function (event) {
-  outputNumber = document.getElementById("output__number").innerHTML * -1;
-  displayOutput(outputNumber);
-});
+var _loop3 = function _loop3(_i4) {
+  additionalButtons[_i4].addEventListener("click", function (event) {
+    if (additionalButtons[_i4] == clearButton) {
+      clearValues([currentNumber, outputNumber, numberVals, operationVals]);
+    } else if (additionalButtons[_i4] == percent) {
+      outputNumber = document.getElementById("output__number").innerHTML * 0.01;
+    } else if (additionalButtons[_i4] == plusMinus) {
+      outputNumber = document.getElementById("output__number").innerHTML * -1;
+    }
+
+    displayOutput(outputNumber);
+  });
+};
+
+for (var _i4 = 0; _i4 < additionalButtons.length; _i4++) {
+  _loop3(_i4);
+}

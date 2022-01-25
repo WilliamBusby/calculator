@@ -6,11 +6,12 @@ let outputNumber;
 const numberButtonsArr = [...document.getElementsByClassName("numbers")];
 const functionButtonsArr = [...document.getElementsByClassName("functions")];
 
-const allButtons = document.getElementById("buttons");
+const allButtons = document.querySelectorAll("button");
 const equalsButton = document.getElementById("equal");
 const clearButton = document.getElementById("remove");
 const plusMinus = document.getElementById("plusMinus");
 const percent = document.getElementById("percent");
+const additionalButtons = [...document.getElementsByClassName("lightgrey")];
 
 const displayOutput = (numberToDisplay) => {
   document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
@@ -32,10 +33,11 @@ const clearValues = (valuesToClear) => {
   }
 }
 
-// allButtons.addEventListener("click", (event) => {
-//   const eachButton = event.target;
-//   eachButton.preventDefault();
-// })
+for(let i= 0; i< allButtons.length; i++) {
+  allButtons[i].addEventListener("click", (event) => {
+    event.preventDefault();
+  })
+}
 
 for (let i = 0; i < numberButtonsArr.length; i++) {
   numberButtonsArr[i].addEventListener("click", (event) => {
@@ -52,7 +54,7 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
   functionButtonsArr[i].addEventListener("click", (event) => {
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[i].innerHTML);
-    currentNumber = "";
+    clearValues(currentNumber);
   })
 }
 
@@ -76,24 +78,20 @@ const calculate = () => {
     } else if(operationVals[i-1] == "/" && numberVals[i] == "0") {
       alert("Can't divide by 0!");
       clearValues([outputNumber, currentNumber, numberVals, operationVals]);
-      return outputNumber;
     }
   }
   clearValues([currentNumber, numberVals, operationVals]);
-  // return outputNumber;
 }
 
-clearButton.addEventListener("click", (event) => {
-  clearValues([currentNumber,outputNumber,numberVals,operationVals]);
-  displayOutput(0);
-})
-
-percent.addEventListener("click", (event) => {
-  outputNumber = document.getElementById("output__number").innerHTML * 0.01;
-  displayOutput(outputNumber);
-})
-
-plusMinus.addEventListener("click", (event) => {
-  outputNumber = document.getElementById("output__number").innerHTML * -1;
-  displayOutput(outputNumber);
-})
+for(let i = 0; i < additionalButtons.length; i++) {
+  additionalButtons[i].addEventListener("click", (event) => {
+    if(additionalButtons[i] == clearButton) {
+      clearValues([currentNumber,outputNumber,numberVals,operationVals]);
+    } else if(additionalButtons[i] == percent) {
+      outputNumber = document.getElementById("output__number").innerHTML * 0.01;
+    } else if(additionalButtons[i] == plusMinus) {
+      outputNumber = document.getElementById("output__number").innerHTML * -1;
+    }
+    displayOutput(outputNumber);
+  })
+}
