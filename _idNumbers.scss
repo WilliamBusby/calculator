@@ -1,0 +1,142 @@
+
+body {
+  #remove {
+    grid-area: remove;
+  }
+
+  #plusMinus {
+    grid-area: plusMinus;
+  }
+
+  #percent {
+    grid-area: percent;
+  }
+
+  #divide {
+    grid-area: divide;
+  }
+
+  #multiply {
+    grid-area: multiply;
+  }
+
+  #minus {
+    grid-area: minus;
+  }
+
+  #plus {
+    grid-area: plus;
+  }
+
+  #equal {
+    grid-area: equal;
+  }
+
+  #squared {
+    grid-area: squared;
+  }
+
+  #cubed {
+    grid-area: cubed;
+  }
+
+  #squareRoot {
+    grid-area: squareRoot;
+  }
+
+  #reciprocal {
+    grid-area: reciprocal;
+  }
+
+  #factorial {
+    grid-area: factorial;
+  }
+
+  #memoryPlus {
+    grid-area: memoryPlus;
+  }
+
+  #memoryMinus {
+    grid-area: memoryMinus;
+  }
+
+  #memoryRecall {
+    grid-area: memoryRecall;
+  }
+
+  #bracketLeft {
+    grid-area: bracketLeft;
+  }
+
+  #bracketRight {
+    grid-area: bracketRight;
+  }
+
+  #exponent {
+    grid-area: exponent;
+  }
+
+  #tenOrder {
+    grid-area: tenOrder;
+  }
+
+  #sin {
+    grid-area: sin;
+  }
+
+  #cos {
+    grid-area: cos;
+  }
+
+  #tanNum {
+    grid-area: tanNum;
+  }
+
+  #nine {
+    grid-area: nine;
+  }
+
+  #eight {
+    grid-area: eight;
+  }
+
+  #seven {
+    grid-area: seven;
+  }
+
+  #six {
+    grid-area: six;
+  }
+
+  #five {
+    grid-area: five;
+  }
+
+  #four {
+    grid-area: four;
+  }
+
+  #three {
+    grid-area: three;
+  }
+
+  #two {
+    grid-area: two;
+  }
+
+  #one {
+    grid-area: one;
+  }
+  
+  #zero {
+    grid-area: zero;
+    width: 350px;
+    text-align: left;
+    padding-left: 60px;
+    border-radius: 80px;
+  }
+
+  #decimal {
+    grid-area: decimal;
+  }
+}

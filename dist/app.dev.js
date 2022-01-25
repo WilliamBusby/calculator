@@ -8,110 +8,146 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+// Defining global variables used within javascript functions
 var currentNumber = "";
 var numberVals = [];
 var operationVals = [];
-var outputNumber;
-var numberButtons = document.getElementsByClassName("numbers");
+var outputNumber = 0;
+var fullString = ""; // Getting information from HTML document
 
-var numberButtonsArr = _toConsumableArray(numberButtons);
+var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
-var functionButtons = document.getElementsByClassName("functions");
+var basicFunctions = _toConsumableArray(document.getElementsByClassName("basic"));
 
-var functionButtonsArr = _toConsumableArray(functionButtons);
+var additionalButtons = _toConsumableArray(document.getElementsByClassName("lightgrey"));
 
-var allButtons = document.getElementById("buttons");
-var equalsButton = document.getElementById("equal");
-var clearButton = document.getElementById("remove");
-var plusMinus = document.getElementById("plusMinus");
-var percent = document.getElementById("percent");
+var allButtons = document.querySelectorAll("button");
+var equalsButton = document.getElementById("equal"); // Function to display output to main display & run once on open page
 
 var displayOutput = function displayOutput(numberToDisplay) {
-  document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
+  document.getElementById("output__big").innerHTML = numberToDisplay.toLocaleString();
 };
+
+displayOutput(0); // Function to display full equation
+
+var smallDisplay = function smallDisplay() {
+  document.getElementById("output__small").innerHTML = fullString;
+}; // Function to clear global variables in input array
+
 
 var clearValues = function clearValues(valuesToClear) {
   for (var i = 0; i < valuesToClear.length; i++) {
-    if (valuesToClear[i] === currentNumber) {
+    if (valuesToClear[i] == "currentNumber") {
       currentNumber = "";
-    } else if (valuesToClear[i] === numberVals) {
+    } else if (valuesToClear[i] == "numberVals") {
       numberVals = [];
-    } else if (valuesToClear[i] === operationVals) {
+    } else if (valuesToClear[i] == "operationVals") {
       operationVals = [];
-    } else if (valuesToClear[i] === outputNumber) {
+    } else if (valuesToClear[i] == "outputNumber") {
       outputNumber = 0;
+    } else if (valuesToClear[i] == "fullString") {
+      fullString = "";
     }
   }
-}; // allButtons.addEventListener("click", (event) => {
-//   const eachButton = event.target;
-//   eachButton.preventDefault();
-// })
+}; // Adds preventDefault to all buttons
 
 
-var _loop = function _loop(i) {
-  numberButtonsArr[i].addEventListener("click", function (event) {
-    if (currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
+for (var i = 0; i < allButtons.length; i++) {
+  allButtons[i].addEventListener("click", function (event) {
+    event.preventDefault();
+  });
+} // Adds number addEventListener to all number buttons
+
+
+var _loop = function _loop(_i) {
+  numberButtonsArr[_i].addEventListener("click", function (event) {
+    if (currentNumber.includes(".") && numberButtonsArr[_i].innerHTML == ".") {
       alert("You can't have two decimal points in one number!");
     } else {
-      currentNumber += numberButtonsArr[i].innerHTML;
+      currentNumber += numberButtonsArr[_i].innerHTML;
       displayOutput(currentNumber);
+      smallDisplay();
     }
   });
 };
 
-for (var i = 0; i < numberButtonsArr.length; i++) {
-  _loop(i);
-}
+for (var _i = 0; _i < numberButtonsArr.length; _i++) {
+  _loop(_i);
+} // Adds function addEventListener to all function buttons
 
-var _loop2 = function _loop2(_i) {
-  functionButtonsArr[_i].addEventListener("click", function (event) {
+
+var _loop2 = function _loop2(_i2) {
+  basicFunctions[_i2].addEventListener("click", function (event) {
     numberVals.push(currentNumber);
-    operationVals.push(functionButtonsArr[_i].innerHTML);
-    currentNumber = "";
+    operationVals.push(basicFunctions[_i2].innerHTML);
+    fullString += currentNumber + basicFunctions[_i2].innerHTML;
+    displayOutput(currentNumber);
+    clearValues(["currentNumber"]);
+    smallDisplay();
   });
 };
 
-for (var _i = 0; _i < functionButtonsArr.length; _i++) {
-  _loop2(_i);
-}
+for (var _i2 = 0; _i2 < basicFunctions.length; _i2++) {
+  _loop2(_i2);
+} // Adds function addEventListener to equals button
+
 
 equalsButton.addEventListener("click", function (event) {
-  calculate();
-  displayOutput(outputNumber);
-});
+  if (currentNumber != "") {
+    fullString += currentNumber + "=";
+    smallDisplay();
+    calculate();
+    displayOutput(outputNumber);
+  } else {
+    alert("Please ensure the amount of operations and numbers match up!");
+  }
+}); // Calculate function used within equals
 
 var calculate = function calculate() {
   numberVals.push(currentNumber);
   outputNumber = Number(numberVals[0]);
 
-  for (var _i2 = 1; _i2 < numberVals.length; _i2++) {
-    if (operationVals[_i2 - 1] == "+") {
-      outputNumber += Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "-") {
-      outputNumber = outputNumber - Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] != "0") {
-      outputNumber = outputNumber / Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "*") {
-      outputNumber = outputNumber * Number(numberVals[_i2]);
-    } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] == "0") {
+  for (var _i3 = 1; _i3 < numberVals.length; _i3++) {
+    if (operationVals[_i3 - 1] == "+") {
+      outputNumber += Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "-") {
+      outputNumber = outputNumber - Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] != "0") {
+      outputNumber = outputNumber / Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "*") {
+      outputNumber = outputNumber * Number(numberVals[_i3]);
+    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] == "0") {
       alert("Can't divide by 0!");
-      clearValues([outputNumber, currentNumber, numberVals, operationVals]);
-      return outputNumber;
+      clearValues(["outputNumber"]);
     }
   }
 
-  clearValues([currentNumber, numberVals, operationVals]); // return outputNumber;
+  clearValues(["currentNumber", "numberVals", "operationVals", "fullString"]);
+}; // Adds function to each of the additional function buttons (CE, +/-, %)
+
+
+var _loop3 = function _loop3(_i4) {
+  additionalButtons[_i4].addEventListener("click", function (event) {
+    if (additionalButtons[_i4].id == "remove") {
+      clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
+    } else if (additionalButtons[_i4].id == "percent") {
+      outputNumber = document.getElementById("output__big").innerHTML * 0.01;
+      currentNumber = (Number(currentNumber) / 100).toString();
+    } else if (additionalButtons[_i4].id == "plusMinus") {
+      outputNumber = document.getElementById("output__big").innerHTML * -1;
+
+      if (currentNumber.charAt(0) !== "-") {
+        currentNumber = "-" + currentNumber;
+      } else {
+        currentNumber = currentNumber.substring(1);
+      }
+    }
+
+    displayOutput(outputNumber);
+    smallDisplay();
+  });
 };
 
-clearButton.addEventListener("click", function (event) {
-  clearValues([currentNumber, outputNumber, numberVals, operationVals]);
-  displayOutput(0);
-});
-percent.addEventListener("click", function (event) {
-  outputNumber = document.getElementById("output__number").innerHTML * 0.01;
-  displayOutput(outputNumber);
-});
-plusMinus.addEventListener("click", function (event) {
-  outputNumber = document.getElementById("output__number").innerHTML * -1;
-  displayOutput(outputNumber);
-});
+for (var _i4 = 0; _i4 < additionalButtons.length; _i4++) {
+  _loop3(_i4);
+}

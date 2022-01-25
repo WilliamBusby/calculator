@@ -1,133 +1,222 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: Helvetica, sans-serif;
-  font-size: min(80px, max(5vw, 20px));
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-rows: 0.8fr 4fr;
-  background-color: black;
-}
-body #output {
-  color: white;
-  text-align: right;
-  margin-left: auto;
-  margin-right: auto;
-  width: min(60vw, 700px);
-  height: 20%;
-}
-body #output__number {
-  font-size: 150px;
-}
-body #buttons {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
-  gap: 1vw;
-  align-items: center;
-  width: min(60vw, 700px);
-  height: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-body #buttons .lightgrey {
-  border-radius: 50%;
-  background-color: lightgray;
-  color: black;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-body #buttons .functions {
-  border-radius: 50%;
-  background-color: orange;
-  color: white;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-body #buttons .numbers {
-  border-radius: 50%;
-  border: 0px;
-  background-color: gray;
-  color: white;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-body #buttons #remove {
+body #remove {
   grid-area: remove;
 }
-body #buttons #plusMinus {
+body #plusMinus {
   grid-area: plusMinus;
 }
-body #buttons #percent {
+body #percent {
   grid-area: percent;
 }
-body #buttons #divide {
+body #divide {
   grid-area: divide;
 }
-body #buttons #multiply {
+body #multiply {
   grid-area: multiply;
 }
-body #buttons #minus {
+body #minus {
   grid-area: minus;
 }
-body #buttons #plus {
+body #plus {
   grid-area: plus;
 }
-body #buttons #equal {
+body #equal {
   grid-area: equal;
-  border-radius: 50%;
-  background-color: orange;
-  color: white;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
 }
-body #buttons #nine {
+body #squared {
+  grid-area: squared;
+}
+body #cubed {
+  grid-area: cubed;
+}
+body #squareRoot {
+  grid-area: squareRoot;
+}
+body #reciprocal {
+  grid-area: reciprocal;
+}
+body #factorial {
+  grid-area: factorial;
+}
+body #memoryPlus {
+  grid-area: memoryPlus;
+}
+body #memoryMinus {
+  grid-area: memoryMinus;
+}
+body #memoryRecall {
+  grid-area: memoryRecall;
+}
+body #bracketLeft {
+  grid-area: bracketLeft;
+}
+body #bracketRight {
+  grid-area: bracketRight;
+}
+body #exponent {
+  grid-area: exponent;
+}
+body #tenOrder {
+  grid-area: tenOrder;
+}
+body #sin {
+  grid-area: sin;
+}
+body #cos {
+  grid-area: cos;
+}
+body #tanNum {
+  grid-area: tanNum;
+}
+body #nine {
   grid-area: nine;
 }
-body #buttons #eight {
+body #eight {
   grid-area: eight;
 }
-body #buttons #seven {
+body #seven {
   grid-area: seven;
 }
-body #buttons #six {
+body #six {
   grid-area: six;
 }
-body #buttons #five {
+body #five {
   grid-area: five;
 }
-body #buttons #four {
+body #four {
   grid-area: four;
 }
-body #buttons #three {
+body #three {
   grid-area: three;
 }
-body #buttons #two {
+body #two {
   grid-area: two;
 }
-body #buttons #one {
+body #one {
   grid-area: one;
 }
-body #buttons #zero {
+body #zero {
   grid-area: zero;
   width: 350px;
   text-align: left;
   padding-left: 60px;
   border-radius: 80px;
 }
-body #buttons #decimal {
+body #decimal {
   grid-area: decimal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+body {
+  overflow-x: hidden;
+  height: 100vh;
+  width: 300px;
+  display: grid;
+  grid-template-rows: 0.8fr 4fr;
+  background-color: black;
+  margin: 0 auto;
+}
+body .desktop {
+  display: none;
+}
+body #output {
+  color: white;
+  text-align: right;
+  margin: 0 auto;
+  width: 300px;
+  height: 90px;
+}
+body #output__big {
+  font-size: 30px;
+  height: 30px;
+  margin-top: 20px;
+}
+body #output__small {
+  font-size: 20px;
+  height: 20px;
+}
+body #buttons {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
+  gap: 20px;
+  align-items: center;
+  width: 300px;
+  height: 405px;
+  margin: 0 auto;
+  vertical-align: center;
+  margin-top: 40px;
+}
+body #buttons .lightgrey {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50%;
+  background-color: lightgray;
+  color: black;
+}
+body #buttons .functions {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50%;
+  background-color: orange;
+  color: white;
+}
+body #buttons .numbers {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50%;
+  background-color: gray;
+  color: white;
+}
+body #buttons .extraFunctions {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  background-color: #1d1d1d;
+}
+body #buttons #zero {
+  grid-area: zero;
+  width: 150px;
+  text-align: left;
+  padding-left: 30px;
+  border-radius: 30px;
+}
+
+@media screen and (min-width: 550px) {
+  body .tablet {
+    display: block;
+  }
+  body #buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: "squared remove plusMinus percent divide" "cubed seven eight nine multiply" "squareRoot four five six minus" "reciprocal one two three plus" "factorial zero zero decimal equal";
+  }
+}
+@media screen and (min-width: 990px) {
+  body .desktop {
+    display: block;
+  }
+  body #buttons {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: "exponent memoryPlus squared remove plusMinus percent divide" "tenOrder memoryMinus cubed seven eight nine multiply" "sin memoryRecall squareRoot four five six minus" "cos bracketLeft reciprocal one two three plus" "tanNum bracketRight factorial zero zero decimal equal";
+  }
 }

@@ -1,0 +1,106 @@
+body #remove {
+  grid-area: remove;
+}
+body #plusMinus {
+  grid-area: plusMinus;
+}
+body #percent {
+  grid-area: percent;
+}
+body #divide {
+  grid-area: divide;
+}
+body #multiply {
+  grid-area: multiply;
+}
+body #minus {
+  grid-area: minus;
+}
+body #plus {
+  grid-area: plus;
+}
+body #equal {
+  grid-area: equal;
+}
+body #squared {
+  grid-area: squared;
+}
+body #cubed {
+  grid-area: cubed;
+}
+body #squareRoot {
+  grid-area: squareRoot;
+}
+body #reciprocal {
+  grid-area: reciprocal;
+}
+body #factorial {
+  grid-area: factorial;
+}
+body #memoryPlus {
+  grid-area: memoryPlus;
+}
+body #memoryMinus {
+  grid-area: memoryMinus;
+}
+body #memoryRecall {
+  grid-area: memoryRecall;
+}
+body #bracketLeft {
+  grid-area: bracketLeft;
+}
+body #bracketRight {
+  grid-area: bracketRight;
+}
+body #exponent {
+  grid-area: exponent;
+}
+body #tenOrder {
+  grid-area: tenOrder;
+}
+body #sin {
+  grid-area: sin;
+}
+body #cos {
+  grid-area: cos;
+}
+body #tanNum {
+  grid-area: tanNum;
+}
+body #nine {
+  grid-area: nine;
+}
+body #eight {
+  grid-area: eight;
+}
+body #seven {
+  grid-area: seven;
+}
+body #six {
+  grid-area: six;
+}
+body #five {
+  grid-area: five;
+}
+body #four {
+  grid-area: four;
+}
+body #three {
+  grid-area: three;
+}
+body #two {
+  grid-area: two;
+}
+body #one {
+  grid-area: one;
+}
+body #zero {
+  grid-area: zero;
+  width: 350px;
+  text-align: left;
+  padding-left: 60px;
+  border-radius: 80px;
+}
+body #decimal {
+  grid-area: decimal;
+}
