@@ -13,7 +13,8 @@ var currentNumber = "";
 var numberVals = [];
 var operationVals = [];
 var outputNumber = 0;
-var fullString = ""; // Getting information from HTML document
+var fullString = "";
+var memory = 0; // Getting information from HTML document
 
 var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
@@ -81,6 +82,12 @@ var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber
   } else if (inputNumber.includes("√") && inputNumber.replace("√", "") >= 0) {
     inputNumberNoAlpha = inputNumber.replace("√", "");
     outputNumber = Math.sqrt(inputNumberNoAlpha);
+  } else if (inputNumber.includes("10^")) {
+    inputNumberNoAlpha = inputNumber.replace("10^", "");
+    outputNumber = Math.pow(10, inputNumberNoAlpha);
+  } else if (inputNumber.includes("e^")) {
+    inputNumberNoAlpha = inputNumber.replace("e^", "");
+    outputNumber = Math.pow(Math.E, inputNumberNoAlpha);
   }
 
   return outputNumber;
@@ -125,8 +132,8 @@ var _loop2 = function _loop2(_i2) {
     operationVals.push(basicFunctions[_i2].innerHTML);
     fullString += currentNumber + basicFunctions[_i2].innerHTML;
     displayOutput(currentNumber);
-    clearValues(["currentNumber"]);
     smallDisplay();
+    clearValues(["currentNumber"]);
   });
 };
 
@@ -136,16 +143,19 @@ for (var _i2 = 0; _i2 < basicFunctions.length; _i2++) {
 
 var _loop3 = function _loop3(_i3) {
   additionalFunctions[_i3].addEventListener("click", function (event) {
+    var funcsInnerHtml = additionalFunctions[_i3].innerHTML;
+    var specialCharacters = ["1/", "√", "10^", "e^"];
+
     if (currentNumber.match(/[^$.\d]/g)) {
       alert("You currently can't have 2 special operators on a number.");
-    } else if (currentNumber.length === 0 || currentNumber[1] === ".") {
+    } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1) {
       alert("You have to input the number before the special operator.");
-    } else if (additionalFunctions[_i3].innerHTML == ("1/" || "√")) {
-      currentNumber = additionalFunctions[_i3].innerHTML + currentNumber;
+    } else if (specialCharacters.includes(funcsInnerHtml)) {
+      currentNumber = funcsInnerHtml + currentNumber;
       displayOutput(currentNumber);
       smallDisplay();
     } else {
-      currentNumber += additionalFunctions[_i3].innerHTML;
+      currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);
       smallDisplay();
     }

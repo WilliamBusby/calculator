@@ -5,6 +5,7 @@ let numberVals = [];
 let operationVals = [];
 let outputNumber = 0;
 let fullString = "";
+let memory = 0;
 
 // Getting information from HTML document
 
@@ -61,7 +62,7 @@ const specialFunctionsCalculator = (inputNumber) => {
   let outputNumber = 0;
   if(inputNumber.includes("!")) {
     inputNumberNoAlpha = inputNumber.replace("!","");
-    outputNumber = factorialCalc((inputNumberNoAlpha));
+    outputNumber = factorialCalc(inputNumberNoAlpha);
   } else if(inputNumber.includes("^2")) {
     inputNumberNoAlpha = inputNumber.replace("^2","");
     outputNumber = (inputNumberNoAlpha) ** 2;
@@ -74,6 +75,12 @@ const specialFunctionsCalculator = (inputNumber) => {
   } else if(inputNumber.includes("√") && inputNumber.replace("√","") >= 0) {
     inputNumberNoAlpha = inputNumber.replace("√","");
     outputNumber = Math.sqrt((inputNumberNoAlpha));
+  } else if(inputNumber.includes("10^")) {
+    inputNumberNoAlpha = inputNumber.replace("10^","");
+    outputNumber = 10 ** (inputNumberNoAlpha);
+  } else if(inputNumber.includes("e^")) {
+    inputNumberNoAlpha = inputNumber.replace("e^","");
+    outputNumber = Math.E ** (inputNumberNoAlpha);
   }
   return outputNumber;
 }
@@ -120,23 +127,25 @@ for (let i = 0; i < basicFunctions.length; i++) {
     operationVals.push(basicFunctions[i].innerHTML);
     fullString += currentNumber + basicFunctions[i].innerHTML;
     displayOutput(currentNumber);
-    clearValues(["currentNumber"])
     smallDisplay();
+    clearValues(["currentNumber"]);
   })
 }
 
 for (let i = 0; i < additionalFunctions.length; i++) {
   additionalFunctions[i].addEventListener("click", (event) => {
+    let funcsInnerHtml = additionalFunctions[i].innerHTML;
+    const specialCharacters = ["1/", "√", "10^", "e^"]
     if(currentNumber.match(/[^$.\d]/g)) {
       alert("You currently can't have 2 special operators on a number.")
-    } else if(currentNumber.length === 0 || currentNumber[1] === "."){
+    } else if(currentNumber.length === 0 || (currentNumber[0] === "." && currentNumber.length === 1)){
       alert("You have to input the number before the special operator.")
-    } else if(additionalFunctions[i].innerHTML == ("1/" || "√")) {
-      currentNumber = additionalFunctions[i].innerHTML + currentNumber;
+    } else if(specialCharacters.includes(funcsInnerHtml)) {
+      currentNumber = funcsInnerHtml + currentNumber;
       displayOutput(currentNumber);
       smallDisplay();
     } else {
-      currentNumber += additionalFunctions[i].innerHTML;
+      currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);
       smallDisplay();
     }
