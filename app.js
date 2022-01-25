@@ -3,11 +3,9 @@ let numberVals = [];
 let operationVals = [];
 let outputNumber;
 
-const numberButtons = document.getElementsByClassName("numbers");
-const numberButtonsArr = [...numberButtons];
+const numberButtonsArr = [...document.getElementsByClassName("numbers")];
+const functionButtonsArr = [...document.getElementsByClassName("functions")];
 
-const functionButtons = document.getElementsByClassName("functions");
-const functionButtonsArr = [...functionButtons];
 const allButtons = document.getElementById("buttons");
 const equalsButton = document.getElementById("equal");
 const clearButton = document.getElementById("remove");
@@ -17,6 +15,8 @@ const percent = document.getElementById("percent");
 const displayOutput = (numberToDisplay) => {
   document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
 }
+
+displayOutput(0);
 
 const clearValues = (valuesToClear) => {
   for(let i = 0; i < valuesToClear.length; i++) {

@@ -12,13 +12,10 @@ var currentNumber = "";
 var numberVals = [];
 var operationVals = [];
 var outputNumber;
-var numberButtons = document.getElementsByClassName("numbers");
 
-var numberButtonsArr = _toConsumableArray(numberButtons);
+var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
-var functionButtons = document.getElementsByClassName("functions");
-
-var functionButtonsArr = _toConsumableArray(functionButtons);
+var functionButtonsArr = _toConsumableArray(document.getElementsByClassName("functions"));
 
 var allButtons = document.getElementById("buttons");
 var equalsButton = document.getElementById("equal");
@@ -29,6 +26,8 @@ var percent = document.getElementById("percent");
 var displayOutput = function displayOutput(numberToDisplay) {
   document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
 };
+
+displayOutput(0);
 
 var clearValues = function clearValues(valuesToClear) {
   for (var i = 0; i < valuesToClear.length; i++) {
