@@ -74,90 +74,85 @@ body #decimal {
   font-size: 20px;
 }
 
-html {
-  height: 100vh;
-}
-
 body {
   overflow-x: hidden;
-  height: 450px;
+  height: 100vh;
   width: 300px;
   display: grid;
   grid-template-rows: 0.8fr 4fr;
   background-color: black;
   margin: 0 auto;
-  margin-top: 50px;
 }
 body #output {
   color: white;
   text-align: right;
   margin: 0 auto;
   width: 300px;
-  height: 20%;
-  vertical-align: center;
+  height: 90px;
 }
 body #output__big {
   font-size: 30px;
   height: 30px;
+  margin-top: 20px;
 }
 body #output__small {
-  font-size: 15px;
-  height: 15px;
+  font-size: 20px;
+  height: 20px;
 }
 body #buttons {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   width: 300px;
-  height: 90%;
+  height: 405px;
   margin: 0 auto;
   vertical-align: center;
+  margin-top: 40px;
 }
 body #buttons .lightgrey {
-  border-radius: 50%;
-  background-color: lightgray;
-  color: black;
   width: 60px;
   height: 60px;
   margin: 0 auto;
   text-align: center;
+  border-radius: 50%;
+  background-color: lightgray;
+  color: black;
 }
 body #buttons .functions {
-  border-radius: 50%;
   background-color: orange;
   color: white;
   width: 60px;
   height: 60px;
   margin: 0 auto;
   text-align: center;
+  border-radius: 50%;
 }
 body #buttons .numbers {
-  border-radius: 50%;
-  border: 0px;
-  background-color: gray;
-  color: white;
   width: 60px;
   height: 60px;
   margin: 0 auto;
   text-align: center;
+  border-radius: 50%;
+  background-color: gray;
+  color: white;
 }
 body #buttons #zero {
   grid-area: zero;
   width: 150px;
   text-align: left;
   padding-left: 30px;
-  border-radius: 20px;
+  border-radius: 30px;
 }
 body #buttons #equal {
   grid-area: equal;
-  border-radius: 50%;
   background-color: orange;
   color: white;
   width: 60px;
   height: 60px;
   margin: 0 auto;
   text-align: center;
+  border-radius: 50%;
 }

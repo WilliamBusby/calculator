@@ -75,9 +75,9 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[i].innerHTML);
     fullString += currentNumber + functionButtonsArr[i].innerHTML;
+    displayOutput(currentNumber);
     clearValues(["currentNumber"])
     smallDisplay();
-    displayOutput(0);
   })
 }
 
@@ -85,8 +85,9 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
 
 equalsButton.addEventListener("click", (event) => {
   if(currentNumber != "") {
-    calculate();
+    fullString += currentNumber + "=";
     smallDisplay();
+    calculate();
     displayOutput(outputNumber);
   } else {
     alert("Please ensure the amount of operations and numbers match up!");
