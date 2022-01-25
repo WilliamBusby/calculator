@@ -21,13 +21,51 @@ body #plus {
 }
 body #equal {
   grid-area: equal;
-  border-radius: 50%;
-  background-color: orange;
-  color: white;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
+}
+body #squared {
+  grid-area: squared;
+}
+body #cubed {
+  grid-area: cubed;
+}
+body #squareRoot {
+  grid-area: squareRoot;
+}
+body #reciprocal {
+  grid-area: reciprocal;
+}
+body #factorial {
+  grid-area: factorial;
+}
+body #memoryPlus {
+  grid-area: memoryPlus;
+}
+body #memoryMinus {
+  grid-area: memoryMinus;
+}
+body #memoryRecall {
+  grid-area: memoryRecall;
+}
+body #bracketLeft {
+  grid-area: bracketLeft;
+}
+body #bracketRight {
+  grid-area: bracketRight;
+}
+body #exponent {
+  grid-area: exponent;
+}
+body #tenOrder {
+  grid-area: tenOrder;
+}
+body #sin {
+  grid-area: sin;
+}
+body #cos {
+  grid-area: cos;
+}
+body #tanNum {
+  grid-area: tanNum;
 }
 body #nine {
   grid-area: nine;

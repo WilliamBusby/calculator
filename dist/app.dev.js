@@ -17,7 +17,7 @@ var fullString = ""; // Getting information from HTML document
 
 var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
-var functionButtonsArr = _toConsumableArray(document.getElementsByClassName("functions"));
+var basicFunctions = _toConsumableArray(document.getElementsByClassName("basic"));
 
 var additionalButtons = _toConsumableArray(document.getElementsByClassName("lightgrey"));
 
@@ -77,17 +77,17 @@ for (var _i = 0; _i < numberButtonsArr.length; _i++) {
 
 
 var _loop2 = function _loop2(_i2) {
-  functionButtonsArr[_i2].addEventListener("click", function (event) {
+  basicFunctions[_i2].addEventListener("click", function (event) {
     numberVals.push(currentNumber);
-    operationVals.push(functionButtonsArr[_i2].innerHTML);
-    fullString += currentNumber + functionButtonsArr[_i2].innerHTML;
+    operationVals.push(basicFunctions[_i2].innerHTML);
+    fullString += currentNumber + basicFunctions[_i2].innerHTML;
     displayOutput(currentNumber);
     clearValues(["currentNumber"]);
     smallDisplay();
   });
 };
 
-for (var _i2 = 0; _i2 < functionButtonsArr.length; _i2++) {
+for (var _i2 = 0; _i2 < basicFunctions.length; _i2++) {
   _loop2(_i2);
 } // Adds function addEventListener to equals button
 

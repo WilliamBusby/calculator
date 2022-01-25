@@ -9,7 +9,7 @@ let fullString = "";
 // Getting information from HTML document
 
 const numberButtonsArr = [...document.getElementsByClassName("numbers")];
-const functionButtonsArr = [...document.getElementsByClassName("functions")];
+const basicFunctions = [...document.getElementsByClassName("basic")];
 const additionalButtons = [...document.getElementsByClassName("lightgrey")];
 const allButtons = document.querySelectorAll("button");
 const equalsButton = document.getElementById("equal");
@@ -70,11 +70,11 @@ for (let i = 0; i < numberButtonsArr.length; i++) {
 
 // Adds function addEventListener to all function buttons
 
-for (let i = 0; i < functionButtonsArr.length; i++) {
-  functionButtonsArr[i].addEventListener("click", (event) => {
+for (let i = 0; i < basicFunctions.length; i++) {
+  basicFunctions[i].addEventListener("click", (event) => {
     numberVals.push(currentNumber);
-    operationVals.push(functionButtonsArr[i].innerHTML);
-    fullString += currentNumber + functionButtonsArr[i].innerHTML;
+    operationVals.push(basicFunctions[i].innerHTML);
+    fullString += currentNumber + basicFunctions[i].innerHTML;
     displayOutput(currentNumber);
     clearValues(["currentNumber"])
     smallDisplay();

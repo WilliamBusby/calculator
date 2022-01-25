@@ -7,11 +7,8 @@
   padding: 0;
   font-family: Helvetica, sans-serif;
   font-size: 20px;
+  font-weight: 600;
 }
-
-// html {
-//   height: 100vh;
-// }
 
 body {
   overflow-x: hidden;
@@ -22,6 +19,10 @@ body {
   // padding: 5px;
   background-color: black;
   margin: 0 auto;
+
+  .desktop {
+    display: none;
+  }
 
   #output {
     &__big {
@@ -42,8 +43,8 @@ body {
 
   #buttons {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(5,1fr);
+    grid-template-columns: repeat(4,1fr);
     grid-template-areas: 
     "remove plusMinus percent divide"
     "seven eight nine multiply"
@@ -65,14 +66,22 @@ body {
     }
 
     .functions {
-      @include orange-buttons;
+      
       @include button-sizings;
+      background-color: orange;
+      color: white;
     }
 
     .numbers {
       @include button-sizings;
       background-color: gray;
       color: white;
+    }
+
+    .extraFunctions {
+      @include button-sizings;
+      color: white;
+      background-color: rgb(29, 29, 29);
     }
 
     #zero {
@@ -82,11 +91,45 @@ body {
       padding-left: 30px;
       border-radius: 30px;
     }
+  }
+}
 
-    #equal {
-      grid-area: equal;
-      @include orange-buttons;
-      @include button-sizings;
+@media screen and (min-width: 550px) {
+  body {
+    .tablet {
+      display: block;
+    }
+
+    #buttons {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      grid-template-rows: repeat(5,1fr);
+      grid-template-areas: 
+      "squared remove plusMinus percent divide"
+      "cubed seven eight nine multiply"
+      "squareRoot four five six minus"
+      "reciprocal one two three plus"
+      "factorial zero zero decimal equal" ;
+    }
+  }
+}
+
+@media screen and (min-width: 990px) {
+  body {
+    .desktop {
+      display: block;
+    }
+
+    #buttons {
+      display: grid;
+      grid-template-columns: repeat(7,1fr);
+      grid-template-rows: repeat(5,1fr);
+      grid-template-areas: 
+      "exponent memoryPlus squared remove plusMinus percent divide"
+      "tenOrder memoryMinus cubed seven eight nine multiply"
+      "sin memoryRecall squareRoot four five six minus"
+      "cos bracketLeft reciprocal one two three plus"
+      "tanNum bracketRight factorial zero zero decimal equal" ;
     }
   }
 }

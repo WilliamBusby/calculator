@@ -30,13 +30,66 @@ body {
 
   #equal {
     grid-area: equal;
-    border-radius: 50%;
-    background-color: orange;
-    color: white;
-    width: 150px;
-    height: 100%;
-    margin: 0 auto;
-    text-align: center;
+  }
+
+  #squared {
+    grid-area: squared;
+  }
+
+  #cubed {
+    grid-area: cubed;
+  }
+
+  #squareRoot {
+    grid-area: squareRoot;
+  }
+
+  #reciprocal {
+    grid-area: reciprocal;
+  }
+
+  #factorial {
+    grid-area: factorial;
+  }
+
+  #memoryPlus {
+    grid-area: memoryPlus;
+  }
+
+  #memoryMinus {
+    grid-area: memoryMinus;
+  }
+
+  #memoryRecall {
+    grid-area: memoryRecall;
+  }
+
+  #bracketLeft {
+    grid-area: bracketLeft;
+  }
+
+  #bracketRight {
+    grid-area: bracketRight;
+  }
+
+  #exponent {
+    grid-area: exponent;
+  }
+
+  #tenOrder {
+    grid-area: tenOrder;
+  }
+
+  #sin {
+    grid-area: sin;
+  }
+
+  #cos {
+    grid-area: cos;
+  }
+
+  #tanNum {
+    grid-area: tanNum;
   }
 
   #nine {
