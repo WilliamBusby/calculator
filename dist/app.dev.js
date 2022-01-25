@@ -71,7 +71,7 @@ var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber
     outputNumber = factorialCalc(inputNumberNoAlpha);
   } else if (inputNumber.includes("^2")) {
     inputNumberNoAlpha = inputNumber.replace("^2", "");
-    outputValue = Math.pow(inputNumberNoAlpha, 2);
+    outputNumber = Math.pow(inputNumberNoAlpha, 2);
   } else if (inputNumber.includes("^3")) {
     inputNumberNoAlpha = inputNumber.replace("^3", "");
     outputNumber = Math.pow(inputNumberNoAlpha, 3);
@@ -161,6 +161,7 @@ equalsButton.addEventListener("click", function (event) {
   if (currentNumber != "") {
     fullString += currentNumber + " =";
     smallDisplay();
+    numberVals.push(currentNumber);
     specialFunctionsChecker();
     calculate();
     displayOutput(outputNumber);
@@ -170,7 +171,6 @@ equalsButton.addEventListener("click", function (event) {
 }); // Calculate function used within equals
 
 var calculate = function calculate() {
-  numberVals.push(currentNumber);
   outputNumber = Number(numberVals[0]);
 
   for (var _i4 = 1; _i4 < numberVals.length; _i4++) {
@@ -188,7 +188,7 @@ var calculate = function calculate() {
     }
   }
 
-  clearValues(["currentNumber", "operationVals", "fullString"]);
+  clearValues(["currentNumber", "numberVals", "operationVals", "fullString"]);
 }; // Adds function to each of the additional function buttons (CE, +/-, %)
 
 

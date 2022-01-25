@@ -64,7 +64,7 @@ const specialFunctionsCalculator = (inputNumber) => {
     outputNumber = factorialCalc((inputNumberNoAlpha));
   } else if(inputNumber.includes("^2")) {
     inputNumberNoAlpha = inputNumber.replace("^2","");
-    outputValue = (inputNumberNoAlpha) ** 2;
+    outputNumber = (inputNumberNoAlpha) ** 2;
   } else if(inputNumber.includes("^3")) {
     inputNumberNoAlpha = inputNumber.replace("^3","");
     outputNumber = (inputNumberNoAlpha) ** 3;
@@ -149,6 +149,7 @@ equalsButton.addEventListener("click", (event) => {
   if(currentNumber != "") {
     fullString += currentNumber + " =";
     smallDisplay();
+    numberVals.push(currentNumber);
     specialFunctionsChecker();
     calculate();
     displayOutput(outputNumber);
@@ -161,7 +162,6 @@ equalsButton.addEventListener("click", (event) => {
 // Calculate function used within equals
 
 const calculate = () => {
-  numberVals.push(currentNumber);
   outputNumber = Number(numberVals[0]);
   for(let i = 1; i < numberVals.length; i++) {
     if(operationVals[i-1] == "+") {
@@ -177,7 +177,7 @@ const calculate = () => {
       clearValues(["outputNumber"]);
     }
   }
-  clearValues(["currentNumber", "operationVals", "fullString"]);
+  clearValues(["currentNumber","numberVals", "operationVals", "fullString"]);
 }
 
 // Adds function to each of the additional function buttons (CE, +/-, %)
