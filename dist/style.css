@@ -20,8 +20,13 @@ body #output {
   width: min(60vw, 700px);
   height: 20%;
 }
-body #output__number {
+body #output__big {
   font-size: 150px;
+  height: 150px;
+}
+body #output__small {
+  font-size: 30px;
+  height: 30px;
 }
 body #buttons {
   display: grid;

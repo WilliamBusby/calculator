@@ -14,8 +14,13 @@ body {
   background-color: black;
 
   #output {
-    &__number {
+    &__big {
       font-size: 150px;
+      height: 150px;
+    }
+    &__small {
+      font-size: 30px;
+      height: 30px;
     }
     color: white;
     text-align: right;
