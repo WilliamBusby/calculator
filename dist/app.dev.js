@@ -32,7 +32,7 @@ var _loop = function _loop(i) {
       alert("You can't have two decimal points in one number!");
     } else {
       currentNumber += numberButtonsArr[i].innerHTML;
-      document.getElementById("output__number").innerHTML = currentNumber;
+      document.getElementById("output__number").innerHTML = currentNumber.toLocaleString();
     }
   });
 };
@@ -57,7 +57,7 @@ for (var _i = 0; _i < functionButtonsArr.length; _i++) {
 equalsButton.addEventListener("click", function (event) {
   event.preventDefault();
   calculate();
-  document.getElementById("output__number").innerHTML = outputNumber;
+  document.getElementById("output__number").innerHTML = outputNumber.toLocaleString();
 });
 
 var calculate = function calculate() {

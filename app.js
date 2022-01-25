@@ -20,7 +20,7 @@ for (let i = 0; i < numberButtonsArr.length; i++) {
       alert("You can't have two decimal points in one number!")
     } else {
       currentNumber += numberButtonsArr[i].innerHTML;
-      document.getElementById("output__number").innerHTML = currentNumber;
+      document.getElementById("output__number").innerHTML = currentNumber.toLocaleString();
     }
   })
 }
@@ -37,7 +37,7 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
 equalsButton.addEventListener("click", (event) => {
   event.preventDefault();
   calculate();
-  document.getElementById("output__number").innerHTML = outputNumber;
+  document.getElementById("output__number").innerHTML = outputNumber.toLocaleString();
 })
 
 const calculate = () => {
