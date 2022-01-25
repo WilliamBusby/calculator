@@ -121,6 +121,7 @@ body {
   grid-template-rows: 0.8fr 4fr;
   background-color: black;
   margin: 0 auto;
+  margin-top: 30px;
 }
 body .desktop {
   display: none;
@@ -198,7 +199,7 @@ body #buttons #zero {
   border-radius: 30px;
 }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 600px) {
   body .tablet {
     display: block;
   }

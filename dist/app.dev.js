@@ -22,7 +22,10 @@ var basicFunctions = _toConsumableArray(document.getElementsByClassName("basic")
 var additionalButtons = _toConsumableArray(document.getElementsByClassName("lightgrey"));
 
 var allButtons = document.querySelectorAll("button");
-var equalsButton = document.getElementById("equal"); // Function to display output to main display & run once on open page
+var equalsButton = document.getElementById("equal");
+
+var additionalFunctions = _toConsumableArray(document.getElementsByClassName("extraFunctions")); // Function to display output to main display & run once on open page
+
 
 var displayOutput = function displayOutput(numberToDisplay) {
   document.getElementById("output__big").innerHTML = numberToDisplay.toLocaleString();
@@ -62,7 +65,9 @@ for (var i = 0; i < allButtons.length; i++) {
 var _loop = function _loop(_i) {
   numberButtonsArr[_i].addEventListener("click", function (event) {
     if (currentNumber.includes(".") && numberButtonsArr[_i].innerHTML == ".") {
-      alert("You can't have two decimal points in one number!");
+      alert("You can't have two decimal points in one number.");
+    } else if (currentNumber.match(/[^$.\d]/g)) {
+      alert("You cannot put a number after a special operator.");
     } else {
       currentNumber += numberButtonsArr[_i].innerHTML;
       displayOutput(currentNumber);
@@ -89,13 +94,36 @@ var _loop2 = function _loop2(_i2) {
 
 for (var _i2 = 0; _i2 < basicFunctions.length; _i2++) {
   _loop2(_i2);
+}
+
+var _loop3 = function _loop3(_i3) {
+  additionalFunctions[_i3].addEventListener("click", function (event) {
+    if (currentNumber.match(/[^$.\d]/g)) {
+      alert("You currently can't have 2 special operators on a number.");
+    } else if (currentNumber.length === 0 || currentNumber[1] === ".") {
+      alert("You have to input the number before the special operator.");
+    } else if (additionalFunctions[_i3].innerHTML == ("1/" || "√")) {
+      currentNumber = additionalFunctions[_i3].innerHTML + currentNumber;
+      displayOutput(currentNumber);
+      smallDisplay();
+    } else {
+      currentNumber += additionalFunctions[_i3].innerHTML;
+      displayOutput(currentNumber);
+      smallDisplay();
+    }
+  });
+};
+
+for (var _i3 = 0; _i3 < additionalFunctions.length; _i3++) {
+  _loop3(_i3);
 } // Adds function addEventListener to equals button
 
 
 equalsButton.addEventListener("click", function (event) {
   if (currentNumber != "") {
-    fullString += currentNumber + "=";
+    fullString += currentNumber + " =";
     smallDisplay();
+    specialFunctionsChecker();
     calculate();
     displayOutput(outputNumber);
   } else {
@@ -107,16 +135,16 @@ var calculate = function calculate() {
   numberVals.push(currentNumber);
   outputNumber = Number(numberVals[0]);
 
-  for (var _i3 = 1; _i3 < numberVals.length; _i3++) {
-    if (operationVals[_i3 - 1] == "+") {
-      outputNumber += Number(numberVals[_i3]);
-    } else if (operationVals[_i3 - 1] == "-") {
-      outputNumber = outputNumber - Number(numberVals[_i3]);
-    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] != "0") {
-      outputNumber = outputNumber / Number(numberVals[_i3]);
-    } else if (operationVals[_i3 - 1] == "*") {
-      outputNumber = outputNumber * Number(numberVals[_i3]);
-    } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] == "0") {
+  for (var _i4 = 1; _i4 < numberVals.length; _i4++) {
+    if (operationVals[_i4 - 1] == "+") {
+      outputNumber += Number(numberVals[_i4]);
+    } else if (operationVals[_i4 - 1] == "-") {
+      outputNumber = outputNumber - Number(numberVals[_i4]);
+    } else if (operationVals[_i4 - 1] == "/" && numberVals[_i4] != "0") {
+      outputNumber = outputNumber / Number(numberVals[_i4]);
+    } else if (operationVals[_i4 - 1] == "*") {
+      outputNumber = outputNumber * Number(numberVals[_i4]);
+    } else if (operationVals[_i4 - 1] == "/" && numberVals[_i4] == "0") {
       alert("Can't divide by 0!");
       clearValues(["outputNumber"]);
     }
@@ -126,14 +154,14 @@ var calculate = function calculate() {
 }; // Adds function to each of the additional function buttons (CE, +/-, %)
 
 
-var _loop3 = function _loop3(_i4) {
-  additionalButtons[_i4].addEventListener("click", function (event) {
-    if (additionalButtons[_i4].id == "remove") {
+var _loop4 = function _loop4(_i5) {
+  additionalButtons[_i5].addEventListener("click", function (event) {
+    if (additionalButtons[_i5].id == "remove") {
       clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
-    } else if (additionalButtons[_i4].id == "percent") {
+    } else if (additionalButtons[_i5].id == "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
       currentNumber = (Number(currentNumber) / 100).toString();
-    } else if (additionalButtons[_i4].id == "plusMinus") {
+    } else if (additionalButtons[_i5].id == "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
 
       if (currentNumber.charAt(0) !== "-") {
@@ -148,6 +176,37 @@ var _loop3 = function _loop3(_i4) {
   });
 };
 
-for (var _i4 = 0; _i4 < additionalButtons.length; _i4++) {
-  _loop3(_i4);
-}
+for (var _i5 = 0; _i5 < additionalButtons.length; _i5++) {
+  _loop4(_i5);
+} // Adds special operators calculation
+
+
+var specialFunctionsChecker = function specialFunctionsChecker() {
+  for (var _i6 = 0; _i6 < numberVals.length; _i6++) {
+    if (numberVals[_i6].match(/[^$.\d]/g)) {
+      numberVals[_i6] = specialFunctionsCalculator(numberVals[_i6]);
+    }
+  }
+};
+
+var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber) {
+  if (inputNumber.slice(-1) == "!") {
+    inputNumber = factorialCalc(inputNumber);
+  } else if (inputNumber.slice(-1) == "^2") {
+    inputNumber = Math.pow(inputNumber, 2);
+  } else if (inputNumber.slice(-1) == "^3") {
+    inputNumber = Math.pow(inputNumber, 3);
+  } else if (inputNumber.slice(-1) == "1/" && inputNumber !== 0) {
+    inputNumber = 1 / inputNumber;
+  } else if (inputNumber.slice(-1) == "√" && inputNumber >= 0) {
+    inputNumber = Math.sqrt(inputNumber);
+  }
+
+  return inputNumber;
+};
+
+var factorialCalc = function factorialCalc(num) {
+  if (num < 0) return -1;else if (num == 0) return 1;else {
+    return num * factorialCalc(num - 1);
+  }
+};
