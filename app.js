@@ -62,7 +62,6 @@ for (let i = 0; i < numberButtonsArr.length; i++) {
       alert("You can't have two decimal points in one number!")
     } else {
       currentNumber += numberButtonsArr[i].innerHTML;
-      fullString += numberButtonsArr[i].innerHTML;
       displayOutput(currentNumber);
       smallDisplay();
     }
@@ -75,7 +74,7 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
   functionButtonsArr[i].addEventListener("click", (event) => {
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[i].innerHTML);
-    fullString += functionButtonsArr[i].innerHTML;
+    fullString += currentNumber + functionButtonsArr[i].innerHTML;
     clearValues(["currentNumber"])
     smallDisplay();
     displayOutput(0);
@@ -85,9 +84,14 @@ for (let i = 0; i < functionButtonsArr.length; i++) {
 // Adds function addEventListener to equals button
 
 equalsButton.addEventListener("click", (event) => {
-  calculate();
-  smallDisplay();
-  displayOutput(outputNumber);
+  if(currentNumber != "") {
+    calculate();
+    smallDisplay();
+    displayOutput(outputNumber);
+  } else {
+    alert("Please ensure the amount of operations and numbers match up!");
+  }
+
 })
 
 // Calculate function used within equals
@@ -120,8 +124,10 @@ for(let i = 0; i < additionalButtons.length; i++) {
       clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
     } else if(additionalButtons[i].id == "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
+      currentNumber = (Number(currentNumber)/100).toString();
     } else if(additionalButtons[i].id == "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
+      currentNumber = "-" + currentNumber;
     }
     displayOutput(outputNumber);
     smallDisplay();

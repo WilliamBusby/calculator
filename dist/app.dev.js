@@ -65,7 +65,6 @@ var _loop = function _loop(_i) {
       alert("You can't have two decimal points in one number!");
     } else {
       currentNumber += numberButtonsArr[_i].innerHTML;
-      fullString += numberButtonsArr[_i].innerHTML;
       displayOutput(currentNumber);
       smallDisplay();
     }
@@ -81,7 +80,7 @@ var _loop2 = function _loop2(_i2) {
   functionButtonsArr[_i2].addEventListener("click", function (event) {
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[_i2].innerHTML);
-    fullString += functionButtonsArr[_i2].innerHTML;
+    fullString += currentNumber + functionButtonsArr[_i2].innerHTML;
     clearValues(["currentNumber"]);
     smallDisplay();
     displayOutput(0);
@@ -94,9 +93,13 @@ for (var _i2 = 0; _i2 < functionButtonsArr.length; _i2++) {
 
 
 equalsButton.addEventListener("click", function (event) {
-  calculate();
-  smallDisplay();
-  displayOutput(outputNumber);
+  if (currentNumber != "") {
+    calculate();
+    smallDisplay();
+    displayOutput(outputNumber);
+  } else {
+    alert("Please ensure the amount of operations and numbers match up!");
+  }
 }); // Calculate function used within equals
 
 var calculate = function calculate() {
@@ -128,8 +131,10 @@ var _loop3 = function _loop3(_i4) {
       clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
     } else if (additionalButtons[_i4].id == "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
+      currentNumber = (Number(currentNumber) / 100).toString();
     } else if (additionalButtons[_i4].id == "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
+      currentNumber = "-" + currentNumber;
     }
 
     displayOutput(outputNumber);
