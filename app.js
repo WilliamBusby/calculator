@@ -47,6 +47,47 @@ const clearValues = (valuesToClear) => {
   }
 }
 
+// Adds special operators calculation
+
+const specialFunctionsChecker = () => {
+  for(let i = 0; i < numberVals.length; i++) {
+    if(numberVals[i].match(/[^$.\d]/g)) {
+      numberVals[i] = specialFunctionsCalculator(numberVals[i]);
+    }
+  }
+}
+
+const specialFunctionsCalculator = (inputNumber) => {
+  let outputNumber = 0;
+  if(inputNumber.includes("!")) {
+    inputNumberNoAlpha = inputNumber.replace("!","");
+    outputNumber = factorialCalc((inputNumberNoAlpha));
+  } else if(inputNumber.includes("^2")) {
+    inputNumberNoAlpha = inputNumber.replace("^2","");
+    outputValue = (inputNumberNoAlpha) ** 2;
+  } else if(inputNumber.includes("^3")) {
+    inputNumberNoAlpha = inputNumber.replace("^3","");
+    outputNumber = (inputNumberNoAlpha) ** 3;
+  } else if(inputNumber.includes("1/") && inputNumber.replace("1/","") !== 0) {
+    inputNumberNoAlpha = inputNumber.replace("1/","");
+    outputNumber = 1/(inputNumberNoAlpha);
+  } else if(inputNumber.includes("√") && inputNumber.replace("√","") >= 0) {
+    inputNumberNoAlpha = inputNumber.replace("√","");
+    outputNumber = Math.sqrt((inputNumberNoAlpha));
+  }
+  return outputNumber;
+}
+
+const factorialCalc = (num) => {
+  if (num < 0) 
+    return -1;
+  else if (num == 0) 
+    return 1;
+  else {
+    return (num * factorialCalc(num - 1));
+  }
+}
+
 // Adds preventDefault to all buttons
 
 for(let i= 0; i< allButtons.length; i++) {
@@ -136,7 +177,7 @@ const calculate = () => {
       clearValues(["outputNumber"]);
     }
   }
-  clearValues(["currentNumber", "numberVals", "operationVals", "fullString"]);
+  clearValues(["currentNumber", "operationVals", "fullString"]);
 }
 
 // Adds function to each of the additional function buttons (CE, +/-, %)
@@ -159,39 +200,4 @@ for(let i = 0; i < additionalButtons.length; i++) {
     displayOutput(outputNumber);
     smallDisplay();
   })
-}
-
-// Adds special operators calculation
-
-const specialFunctionsChecker = () => {
-  for(let i = 0; i < numberVals.length; i++) {
-    if(numberVals[i].match(/[^$.\d]/g)) {
-      numberVals[i] = specialFunctionsCalculator(numberVals[i]);
-    }
-  }
-}
-
-const specialFunctionsCalculator = (inputNumber) => {
-  if(inputNumber.slice(-1) == "!") {
-    inputNumber = factorialCalc(inputNumber)
-  } else if(inputNumber.slice(-1) == "^2") {
-    inputNumber = inputNumber ** 2;
-  } else if(inputNumber.slice(-1) == "^3") {
-    inputNumber = inputNumber ** 3;
-  } else if(inputNumber.slice(-1) == "1/" && inputNumber !== 0) {
-    inputNumber = 1/inputNumber;
-  } else if(inputNumber.slice(-1) == "√" && inputNumber >= 0) {
-    inputNumber = Math.sqrt(inputNumber);
-  }
-  return inputNumber
-}
-
-const factorialCalc = (num) => {
-  if (num < 0) 
-    return -1;
-  else if (num == 0) 
-    return 1;
-  else {
-    return (num * factorialCalc(num - 1));
-  }
 }
