@@ -71,24 +71,30 @@ body #decimal {
   margin: 0;
   padding: 0;
   font-family: Helvetica, sans-serif;
-  font-size: min(80px, max(5vw, 20px));
+  font-size: 20px;
+}
+
+html {
+  height: 100vh;
 }
 
 body {
   overflow-x: hidden;
-  height: 100vh;
+  height: 450px;
   width: 300px;
   display: grid;
   grid-template-rows: 0.8fr 4fr;
   background-color: black;
+  margin: 0 auto;
+  margin-top: 50px;
 }
 body #output {
   color: white;
   text-align: right;
-  margin-left: auto;
-  margin-right: auto;
-  width: min(60vw, 700px);
+  margin: 0 auto;
+  width: 300px;
   height: 20%;
+  vertical-align: center;
 }
 body #output__big {
   font-size: 30px;
@@ -103,12 +109,12 @@ body #buttons {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: "remove plusMinus percent divide" "seven eight nine multiply" "four five six minus" "one two three plus" "zero zero decimal equal";
-  gap: 1vw;
+  gap: 10px;
   align-items: center;
-  width: min(60vw, 700px);
+  width: 300px;
   height: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  vertical-align: center;
 }
 body #buttons .lightgrey {
   border-radius: 50%;
@@ -140,8 +146,18 @@ body #buttons .numbers {
 }
 body #buttons #zero {
   grid-area: zero;
-  width: 350px;
+  width: 150px;
   text-align: left;
-  padding-left: 60px;
-  border-radius: 80px;
+  padding-left: 30px;
+  border-radius: 20px;
+}
+body #buttons #equal {
+  grid-area: equal;
+  border-radius: 50%;
+  background-color: orange;
+  color: white;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
 }

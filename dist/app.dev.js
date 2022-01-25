@@ -117,7 +117,7 @@ var calculate = function calculate() {
       outputNumber = outputNumber * Number(numberVals[_i3]);
     } else if (operationVals[_i3 - 1] == "/" && numberVals[_i3] == "0") {
       alert("Can't divide by 0!");
-      clearValues(["outputNumber", "currentNumber", "numberVals", "operationVals", "fullString"]);
+      clearValues(["outputNumber"]);
     }
   }
 
@@ -134,7 +134,12 @@ var _loop3 = function _loop3(_i4) {
       currentNumber = (Number(currentNumber) / 100).toString();
     } else if (additionalButtons[_i4].id == "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
-      currentNumber = "-" + currentNumber;
+
+      if (currentNumber.charAt(0) !== "-") {
+        currentNumber = "-" + currentNumber;
+      } else {
+        currentNumber = currentNumber.substring(1);
+      }
     }
 
     displayOutput(outputNumber);

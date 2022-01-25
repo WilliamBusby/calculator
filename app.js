@@ -59,7 +59,7 @@ for(let i= 0; i< allButtons.length; i++) {
 for (let i = 0; i < numberButtonsArr.length; i++) {
   numberButtonsArr[i].addEventListener("click", (event) => {
     if(currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
-      alert("You can't have two decimal points in one number!")
+      alert("You can't have two decimal points in one number!");
     } else {
       currentNumber += numberButtonsArr[i].innerHTML;
       displayOutput(currentNumber);
@@ -110,7 +110,7 @@ const calculate = () => {
       outputNumber = outputNumber * Number(numberVals[i]);
     } else if(operationVals[i-1] == "/" && numberVals[i] == "0") {
       alert("Can't divide by 0!");
-      clearValues(["outputNumber", "currentNumber", "numberVals", "operationVals", "fullString"]);
+      clearValues(["outputNumber"]);
     }
   }
   clearValues(["currentNumber", "numberVals", "operationVals", "fullString"]);
@@ -127,7 +127,11 @@ for(let i = 0; i < additionalButtons.length; i++) {
       currentNumber = (Number(currentNumber)/100).toString();
     } else if(additionalButtons[i].id == "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
-      currentNumber = "-" + currentNumber;
+        if(currentNumber.charAt(0) !== "-"){
+          currentNumber = "-" + currentNumber;
+        } else {
+          currentNumber = currentNumber.substring(1);
+        }
     }
     displayOutput(outputNumber);
     smallDisplay();
