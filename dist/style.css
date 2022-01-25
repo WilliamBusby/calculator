@@ -1,3 +1,72 @@
+body #remove {
+  grid-area: remove;
+}
+body #plusMinus {
+  grid-area: plusMinus;
+}
+body #percent {
+  grid-area: percent;
+}
+body #divide {
+  grid-area: divide;
+}
+body #multiply {
+  grid-area: multiply;
+}
+body #minus {
+  grid-area: minus;
+}
+body #plus {
+  grid-area: plus;
+}
+body #equal {
+  grid-area: equal;
+  border-radius: 50%;
+  background-color: orange;
+  color: white;
+  width: 150px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+body #nine {
+  grid-area: nine;
+}
+body #eight {
+  grid-area: eight;
+}
+body #seven {
+  grid-area: seven;
+}
+body #six {
+  grid-area: six;
+}
+body #five {
+  grid-area: five;
+}
+body #four {
+  grid-area: four;
+}
+body #three {
+  grid-area: three;
+}
+body #two {
+  grid-area: two;
+}
+body #one {
+  grid-area: one;
+}
+body #zero {
+  grid-area: zero;
+  width: 350px;
+  text-align: left;
+  padding-left: 60px;
+  border-radius: 80px;
+}
+body #decimal {
+  grid-area: decimal;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +75,9 @@
 }
 
 body {
+  overflow-x: hidden;
   height: 100vh;
-  width: 100vw;
+  width: 300px;
   display: grid;
   grid-template-rows: 0.8fr 4fr;
   background-color: black;
@@ -21,12 +91,12 @@ body #output {
   height: 20%;
 }
 body #output__big {
-  font-size: 150px;
-  height: 150px;
-}
-body #output__small {
   font-size: 30px;
   height: 30px;
+}
+body #output__small {
+  font-size: 15px;
+  height: 15px;
 }
 body #buttons {
   display: grid;
@@ -44,8 +114,8 @@ body #buttons .lightgrey {
   border-radius: 50%;
   background-color: lightgray;
   color: black;
-  width: 150px;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   margin: 0 auto;
   text-align: center;
 }
@@ -53,8 +123,8 @@ body #buttons .functions {
   border-radius: 50%;
   background-color: orange;
   color: white;
-  width: 150px;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   margin: 0 auto;
   text-align: center;
 }
@@ -63,68 +133,10 @@ body #buttons .numbers {
   border: 0px;
   background-color: gray;
   color: white;
-  width: 150px;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   margin: 0 auto;
   text-align: center;
-}
-body #buttons #remove {
-  grid-area: remove;
-}
-body #buttons #plusMinus {
-  grid-area: plusMinus;
-}
-body #buttons #percent {
-  grid-area: percent;
-}
-body #buttons #divide {
-  grid-area: divide;
-}
-body #buttons #multiply {
-  grid-area: multiply;
-}
-body #buttons #minus {
-  grid-area: minus;
-}
-body #buttons #plus {
-  grid-area: plus;
-}
-body #buttons #equal {
-  grid-area: equal;
-  border-radius: 50%;
-  background-color: orange;
-  color: white;
-  width: 150px;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-}
-body #buttons #nine {
-  grid-area: nine;
-}
-body #buttons #eight {
-  grid-area: eight;
-}
-body #buttons #seven {
-  grid-area: seven;
-}
-body #buttons #six {
-  grid-area: six;
-}
-body #buttons #five {
-  grid-area: five;
-}
-body #buttons #four {
-  grid-area: four;
-}
-body #buttons #three {
-  grid-area: three;
-}
-body #buttons #two {
-  grid-area: two;
-}
-body #buttons #one {
-  grid-area: one;
 }
 body #buttons #zero {
   grid-area: zero;
@@ -132,7 +144,4 @@ body #buttons #zero {
   text-align: left;
   padding-left: 60px;
   border-radius: 80px;
-}
-body #buttons #decimal {
-  grid-area: decimal;
 }
