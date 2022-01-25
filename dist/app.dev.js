@@ -20,19 +20,41 @@ var functionButtons = document.getElementsByClassName("functions");
 
 var functionButtonsArr = _toConsumableArray(functionButtons);
 
+var allButtons = document.getElementById("buttons");
 var equalsButton = document.getElementById("equal");
-var outputHTMLNumber = document.getElementById("output__number");
 var clearButton = document.getElementById("remove");
+var plusMinus = document.getElementById("plusMinus");
+var percent = document.getElementById("percent");
+
+var displayOutput = function displayOutput(numberToDisplay) {
+  document.getElementById("output__number").innerHTML = numberToDisplay.toLocaleString();
+};
+
+var clearValues = function clearValues(valuesToClear) {
+  for (var i = 0; i < valuesToClear.length; i++) {
+    if (valuesToClear[i] === currentNumber) {
+      currentNumber = "";
+    } else if (valuesToClear[i] === numberVals) {
+      numberVals = [];
+    } else if (valuesToClear[i] === operationVals) {
+      operationVals = [];
+    } else if (valuesToClear[i] === outputNumber) {
+      outputNumber = 0;
+    }
+  }
+}; // allButtons.addEventListener("click", (event) => {
+//   const eachButton = event.target;
+//   eachButton.preventDefault();
+// })
+
 
 var _loop = function _loop(i) {
   numberButtonsArr[i].addEventListener("click", function (event) {
-    event.preventDefault();
-
     if (currentNumber.includes(".") && numberButtonsArr[i].innerHTML == ".") {
       alert("You can't have two decimal points in one number!");
     } else {
       currentNumber += numberButtonsArr[i].innerHTML;
-      document.getElementById("output__number").innerHTML = currentNumber.toLocaleString();
+      displayOutput(currentNumber);
     }
   });
 };
@@ -43,7 +65,6 @@ for (var i = 0; i < numberButtonsArr.length; i++) {
 
 var _loop2 = function _loop2(_i) {
   functionButtonsArr[_i].addEventListener("click", function (event) {
-    event.preventDefault();
     numberVals.push(currentNumber);
     operationVals.push(functionButtonsArr[_i].innerHTML);
     currentNumber = "";
@@ -55,9 +76,8 @@ for (var _i = 0; _i < functionButtonsArr.length; _i++) {
 }
 
 equalsButton.addEventListener("click", function (event) {
-  event.preventDefault();
   calculate();
-  document.getElementById("output__number").innerHTML = outputNumber.toLocaleString();
+  displayOutput(outputNumber);
 });
 
 var calculate = function calculate() {
@@ -75,22 +95,23 @@ var calculate = function calculate() {
       outputNumber = outputNumber * Number(numberVals[_i2]);
     } else if (operationVals[_i2 - 1] == "/" && numberVals[_i2] == "0") {
       alert("Can't divide by 0!");
-      outputNumber = 0;
-      currentNumber = "";
-      numberVals = [];
-      operationVals = [];
+      clearValues([outputNumber, currentNumber, numberVals, operationVals]);
       return outputNumber;
     }
   }
 
-  currentNumber = "";
-  numberVals = [];
-  operationVals = [];
-  return outputNumber;
+  clearValues([currentNumber, numberVals, operationVals]); // return outputNumber;
 };
 
 clearButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  currentNumber = "";
-  document.getElementById("output__number").innerHTML = 0;
+  clearValues([currentNumber, outputNumber, numberVals, operationVals]);
+  displayOutput(0);
+});
+percent.addEventListener("click", function (event) {
+  outputNumber = document.getElementById("output__number").innerHTML * 0.01;
+  displayOutput(outputNumber);
+});
+plusMinus.addEventListener("click", function (event) {
+  outputNumber = document.getElementById("output__number").innerHTML * -1;
+  displayOutput(outputNumber);
 });
