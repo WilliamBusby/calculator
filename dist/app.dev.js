@@ -157,15 +157,24 @@ var _loop3 = function _loop3(_i3) {
   additionalFunctions[_i3].addEventListener("click", function (event) {
     var funcsInnerHtml = additionalFunctions[_i3].innerHTML;
     var specialCharacters = ["1/", "√", "10^", "e^"];
+    var memoryCharacters = ["M", "M-"];
 
     if (currentNumber.match(/[^$.\d]/g)) {
       alert("You currently can't have 2 special operators on a number.");
-    } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1) {
+    } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1 || memoryCharacters.includes(funcsInnerHtml)) {
       alert("You have to input the number before the special operator.");
     } else if (specialCharacters.includes(funcsInnerHtml)) {
       currentNumber = funcsInnerHtml + currentNumber;
       displayOutput(currentNumber);
       smallDisplay();
+    } else if (funcsInnerHtml === "M+") {
+      outputCalc();
+      memory = outputNumber;
+    } else if (funcsInnerHtml === "M-") {
+      memory = 0;
+    } else if (funcsInnerHtml === "M") {
+      currentNumber = String(memory);
+      displayOutput(currentNumber);
     } else {
       currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);
@@ -233,21 +242,15 @@ var _loop4 = function _loop4(_i5) {
 
 for (var _i5 = 0; _i5 < additionalButtons.length; _i5++) {
   _loop4(_i5);
-}
-
-var _loop5 = function _loop5(_i6) {
-  memoryButtons[_i6].addEventListener("click", function (event) {
-    if (memoryButtons[_i6].id === "memoryPlus") {
-      outputCalc();
-      memory = outputNumber;
-    } else if (memoryButtons[_i6].id === "memoryMinus") {
-      memory = 0;
-    } else if (memoryButtons[_i6].id === "memory") {
-      currentNumber = String(memory);
-    }
-  });
-};
-
-for (var _i6 = 0; _i6 < memoryButtons.length; _i6++) {
-  _loop5(_i6);
-}
+} // for(let i = 0; i< memoryButtons.length; i++) {
+//   memoryButtons[i].addEventListener("click", (event) => {
+//     if(memoryButtons[i].id === "memoryPlus") {
+//       outputCalc();
+//       memory = outputNumber;
+//     } else if(memoryButtons[i].id === "memoryMinus") {
+//       memory = 0;
+//     } else if(memoryButtons[i].id === "memory") {
+//       currentNumber = String(memory);
+//     }
+//   })
+// }
