@@ -1,5 +1,13 @@
 "use strict";
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -14,7 +22,12 @@ var numberVals = [];
 var operationVals = [];
 var outputNumber = 0;
 var fullString = "";
-var memory = 0; // Getting information from HTML document
+var memory = 0;
+var bracketNums = [];
+var bracketOps = [];
+var bracketOutput = 0;
+var isBracketActive = false;
+var bracketNumsTemp = ""; // Getting information from HTML document
 
 var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
@@ -53,15 +66,23 @@ var clearValues = function clearValues(valuesToClear) {
       outputNumber = 0;
     } else if (valuesToClear[i] == "fullString") {
       fullString = "";
+    } else if (valuesToClear[i] == "bracketNums") {
+      bracketNums = [];
+    } else if (valuesToClear[i] == "bracketOps") {
+      bracketOps = [];
+    } else if (valuesToClear[i] == "bracketOutput") {
+      bracketOutput = 0;
+    } else if (valuesToClear[i] == "bracketNumsTemp") {
+      bracketNumsTemp = "";
     }
   }
 }; // Adds special operators calculation
 
 
-var specialFunctionsChecker = function specialFunctionsChecker() {
-  for (var i = 0; i < numberVals.length; i++) {
-    if (numberVals[i].match(/[^$.\d]/g)) {
-      numberVals[i] = specialFunctionsCalculator(numberVals[i]);
+var specialFunctionsChecker = function specialFunctionsChecker(numberArr) {
+  for (var i = 0; i < numberArr.length; i++) {
+    if (numberArr[i].match(/[^$.\d]/g)) {
+      numberArr[i] = specialFunctionsCalculator(numberArr[i]);
     }
   }
 };
@@ -106,9 +127,32 @@ var outputCalc = function outputCalc() {
   fullString += currentNumber + " =";
   smallDisplay();
   numberVals.push(currentNumber);
-  specialFunctionsChecker();
-  calculate();
+  console.log(numberVals);
+  specialFunctionsChecker(numberVals);
+
+  var _calculate = calculate(numberVals, operationVals, outputNumber, ["currentNumber", "numberVals", "operationVals", "fullString"]);
+
+  var _calculate2 = _slicedToArray(_calculate, 3);
+
+  numberVals = _calculate2[0];
+  operationVals = _calculate2[1];
+  outputNumber = _calculate2[2];
   displayOutput(outputNumber);
+}; // To calculate within brackets
+
+
+var bracketCalc = function bracketCalc() {
+  bracketNums.push(bracketNumsTemp);
+  smallDisplay();
+  specialFunctionsChecker(bracketNums);
+
+  var _calculate3 = calculate(bracketNums, bracketOps, bracketOutput, ["bracketNumsTemp", "bracketNums", "bracketOps"]);
+
+  var _calculate4 = _slicedToArray(_calculate3, 3);
+
+  bracketNums = _calculate4[0];
+  bracketOps = _calculate4[1];
+  bracketOutput = _calculate4[2];
 }; // Adds preventDefault to all buttons
 
 
@@ -119,46 +163,59 @@ for (var i = 0; i < allButtons.length; i++) {
 } // Adds number addEventListener to all number buttons
 
 
-var _loop = function _loop(_i) {
-  numberButtonsArr[_i].addEventListener("click", function (event) {
-    if (currentNumber.includes(".") && numberButtonsArr[_i].innerHTML == ".") {
+var _loop = function _loop(_i2) {
+  numberButtonsArr[_i2].addEventListener("click", function (event) {
+    if (currentNumber.includes(".") && numberButtonsArr[_i2].innerHTML == ".") {
       alert("You can't have two decimal points in one number.");
     } else if (currentNumber.match(/[^$.\d]/g)) {
       alert("You cannot put a number after a special operator.");
+    } else if (isBracketActive) {
+      bracketNumsTemp += numberButtonsArr[_i2].innerHTML;
+      displayOutput(bracketNumsTemp);
+      smallDisplay();
     } else {
-      currentNumber += numberButtonsArr[_i].innerHTML;
+      currentNumber += numberButtonsArr[_i2].innerHTML;
       displayOutput(currentNumber);
       smallDisplay();
     }
   });
 };
 
-for (var _i = 0; _i < numberButtonsArr.length; _i++) {
-  _loop(_i);
+for (var _i2 = 0; _i2 < numberButtonsArr.length; _i2++) {
+  _loop(_i2);
 } // Adds function addEventListener to all function buttons
 
 
-var _loop2 = function _loop2(_i2) {
-  basicFunctions[_i2].addEventListener("click", function (event) {
-    numberVals.push(currentNumber);
-    operationVals.push(basicFunctions[_i2].innerHTML);
-    fullString += currentNumber + basicFunctions[_i2].innerHTML;
-    displayOutput(currentNumber);
-    smallDisplay();
-    clearValues(["currentNumber"]);
+var _loop2 = function _loop2(_i3) {
+  basicFunctions[_i3].addEventListener("click", function (event) {
+    if (isBracketActive) {
+      bracketNums.push(bracketNumsTemp);
+      bracketOps.push(basicFunctions[_i3].innerHTML);
+      fullString += bracketNumsTemp + basicFunctions[_i3].innerHTML;
+      displayOutput(bracketNumsTemp);
+      smallDisplay();
+      clearValues(["bracketNumsTemp"]);
+    } else {
+      numberVals.push(currentNumber);
+      operationVals.push(basicFunctions[_i3].innerHTML);
+      fullString += currentNumber + basicFunctions[_i3].innerHTML;
+      displayOutput(currentNumber);
+      smallDisplay();
+      clearValues(["currentNumber"]);
+    }
   });
 };
 
-for (var _i2 = 0; _i2 < basicFunctions.length; _i2++) {
-  _loop2(_i2);
+for (var _i3 = 0; _i3 < basicFunctions.length; _i3++) {
+  _loop2(_i3);
 }
 
-var _loop3 = function _loop3(_i3) {
-  additionalFunctions[_i3].addEventListener("click", function (event) {
-    var funcsInnerHtml = additionalFunctions[_i3].innerHTML;
+var _loop3 = function _loop3(_i4) {
+  additionalFunctions[_i4].addEventListener("click", function (event) {
+    var funcsInnerHtml = additionalFunctions[_i4].innerHTML;
     var specialCharacters = ["1/", "√", "10^", "e^"];
 
-    if (currentNumber.match(/[^$.\d]/g)) {
+    if (currentNumber.match(/[^$.\d(]/g)) {
       alert("You currently can't have 2 special operators on a number.");
     } else if (funcsInnerHtml === "M-") {
       memory = 0;
@@ -168,12 +225,26 @@ var _loop3 = function _loop3(_i3) {
     } else if (funcsInnerHtml === "M+") {
       outputCalc();
       memory = outputNumber;
+    } else if (funcsInnerHtml === "(" && !isBracketActive && currentNumber === "") {
+      isBracketActive = true;
+      bracketOutput = 0;
+      fullString += "(";
+    } else if (funcsInnerHtml === ")" && isBracketActive) {
+      fullString += bracketNumsTemp + ")";
+      bracketCalc();
+      currentNumber = String(bracketOutput);
+      clearValues(["bracketOutput"]);
+      isBracketActive = false;
     } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1) {
       alert("You have to input the number before the special operator.");
     } else if (specialCharacters.includes(funcsInnerHtml)) {
       currentNumber = funcsInnerHtml + currentNumber;
       displayOutput(currentNumber);
       smallDisplay();
+    } else if (funcsInnerHtml === ")" && !isBracketActive) {
+      alert("You need to put an opening bracket before a closing one.");
+    } else if (funcsInnerHtml === "(" && isBracketActive) {
+      alert("You cannot have brackets within each other currently.");
     } else {
       currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);
@@ -182,49 +253,52 @@ var _loop3 = function _loop3(_i3) {
   });
 };
 
-for (var _i3 = 0; _i3 < additionalFunctions.length; _i3++) {
-  _loop3(_i3);
+for (var _i4 = 0; _i4 < additionalFunctions.length; _i4++) {
+  _loop3(_i4);
 } // Adds function addEventListener to equals button
 
 
 equalsButton.addEventListener("click", function (event) {
-  if (currentNumber != "") {
+  if (currentNumber != "" || fullString[fullString.length - 1] == ")") {
     outputCalc();
   } else {
     alert("Please ensure the amount of operations and numbers match up!");
   }
 }); // Calculate function used within equals
 
-var calculate = function calculate() {
-  outputNumber = Number(numberVals[0]);
+var calculate = function calculate(numberArr, operationsArr, outputValue, valsToClear) {
+  console.log();
+  outputValue = Number(numberArr[0]);
 
-  for (var _i4 = 1; _i4 < numberVals.length; _i4++) {
-    if (operationVals[_i4 - 1] == "+") {
-      outputNumber += Number(numberVals[_i4]);
-    } else if (operationVals[_i4 - 1] == "-") {
-      outputNumber = outputNumber - Number(numberVals[_i4]);
-    } else if (operationVals[_i4 - 1] == "/" && numberVals[_i4] != "0") {
-      outputNumber = outputNumber / Number(numberVals[_i4]);
-    } else if (operationVals[_i4 - 1] == "*") {
-      outputNumber = outputNumber * Number(numberVals[_i4]);
-    } else if (operationVals[_i4 - 1] == "/" && numberVals[_i4] == "0") {
+  for (var _i5 = 1; _i5 < numberArr.length; _i5++) {
+    if (operationsArr[_i5 - 1] == "+") {
+      outputValue += Number(numberArr[_i5]);
+    } else if (operationsArr[_i5 - 1] == "-") {
+      outputValue = outputValue - Number(numberArr[_i5]);
+    } else if (operationsArr[_i5 - 1] == "/" && numberArr[_i5] != "0") {
+      outputValue = outputValue / Number(numberArr[_i5]);
+    } else if (operationsArr[_i5 - 1] == "*") {
+      outputValue = outputValue * Number(numberArr[_i5]);
+    } else if (operationsArr[_i5 - 1] == "/" && numberArr[_i5] == "0") {
       alert("Can't divide by 0!");
       clearValues(["outputNumber"]);
     }
   }
 
-  clearValues(["currentNumber", "numberVals", "operationVals", "fullString"]);
+  clearValues(valsToClear);
+  return [numberArr, operationsArr, outputValue];
 }; // Adds function to each of the additional function buttons (CE, +/-, %)
 
 
-var _loop4 = function _loop4(_i5) {
-  additionalButtons[_i5].addEventListener("click", function (event) {
-    if (additionalButtons[_i5].id === "remove") {
-      clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
-    } else if (additionalButtons[_i5].id === "percent") {
+var _loop4 = function _loop4(_i6) {
+  additionalButtons[_i6].addEventListener("click", function (event) {
+    if (additionalButtons[_i6].id === "remove") {
+      clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString", "bracketNums", "bracketOps", "bracketOutput", "bracketNumsTemp"]);
+      isBracketActive = false;
+    } else if (additionalButtons[_i6].id === "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
       currentNumber = (Number(currentNumber) / 100).toString();
-    } else if (additionalButtons[_i5].id === "plusMinus") {
+    } else if (additionalButtons[_i6].id === "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
 
       if (currentNumber.charAt(0) !== "-") {
@@ -239,17 +313,6 @@ var _loop4 = function _loop4(_i5) {
   });
 };
 
-for (var _i5 = 0; _i5 < additionalButtons.length; _i5++) {
-  _loop4(_i5);
-} // for(let i = 0; i< memoryButtons.length; i++) {
-//   memoryButtons[i].addEventListener("click", (event) => {
-//     if(memoryButtons[i].id === "memoryPlus") {
-//       outputCalc();
-//       memory = outputNumber;
-//     } else if(memoryButtons[i].id === "memoryMinus") {
-//       memory = 0;
-//     } else if(memoryButtons[i].id === "memory") {
-//       currentNumber = String(memory);
-//     }
-//   })
-// }
+for (var _i6 = 0; _i6 < additionalButtons.length; _i6++) {
+  _loop4(_i6);
+}
