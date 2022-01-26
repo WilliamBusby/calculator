@@ -157,24 +157,23 @@ var _loop3 = function _loop3(_i3) {
   additionalFunctions[_i3].addEventListener("click", function (event) {
     var funcsInnerHtml = additionalFunctions[_i3].innerHTML;
     var specialCharacters = ["1/", "√", "10^", "e^"];
-    var memoryCharacters = ["M", "M-"];
 
     if (currentNumber.match(/[^$.\d]/g)) {
       alert("You currently can't have 2 special operators on a number.");
-    } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1 || memoryCharacters.includes(funcsInnerHtml)) {
-      alert("You have to input the number before the special operator.");
-    } else if (specialCharacters.includes(funcsInnerHtml)) {
-      currentNumber = funcsInnerHtml + currentNumber;
-      displayOutput(currentNumber);
-      smallDisplay();
-    } else if (funcsInnerHtml === "M+") {
-      outputCalc();
-      memory = outputNumber;
     } else if (funcsInnerHtml === "M-") {
       memory = 0;
     } else if (funcsInnerHtml === "M") {
       currentNumber = String(memory);
       displayOutput(currentNumber);
+    } else if (funcsInnerHtml === "M+") {
+      outputCalc();
+      memory = outputNumber;
+    } else if (currentNumber.length === 0 || currentNumber[0] === "." && currentNumber.length === 1) {
+      alert("You have to input the number before the special operator.");
+    } else if (specialCharacters.includes(funcsInnerHtml)) {
+      currentNumber = funcsInnerHtml + currentNumber;
+      displayOutput(currentNumber);
+      smallDisplay();
     } else {
       currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);

@@ -148,23 +148,22 @@ for (let i = 0; i < additionalFunctions.length; i++) {
   additionalFunctions[i].addEventListener("click", (event) => {
     let funcsInnerHtml = additionalFunctions[i].innerHTML;
     const specialCharacters = ["1/", "√", "10^", "e^"]
-    const memoryCharacters = ["M", "M-"]
     if(currentNumber.match(/[^$.\d]/g)) {
       alert("You currently can't have 2 special operators on a number.")
-    } else if(currentNumber.length === 0 || (currentNumber[0] === "." && currentNumber.length === 1) || memoryCharacters.includes(funcsInnerHtml)){
+    } else if(funcsInnerHtml === "M-") {
+      memory = 0;
+    } else if(funcsInnerHtml === "M") {
+      currentNumber = String(memory);
+      displayOutput(currentNumber);
+    } else if(funcsInnerHtml === "M+") {
+      outputCalc();
+      memory = outputNumber;
+    } else if(currentNumber.length === 0 || (currentNumber[0] === "." && currentNumber.length === 1)){
       alert("You have to input the number before the special operator.")
     } else if(specialCharacters.includes(funcsInnerHtml)) {
       currentNumber = funcsInnerHtml + currentNumber;
       displayOutput(currentNumber);
       smallDisplay();
-    } else if(funcsInnerHtml === "M+") {
-      outputCalc();
-      memory = outputNumber;
-    }else if(funcsInnerHtml === "M-") {
-      memory = 0;
-    } else if(funcsInnerHtml === "M") {
-      currentNumber = String(memory);
-      displayOutput(currentNumber);
     } else {
       currentNumber += funcsInnerHtml;
       displayOutput(currentNumber);
