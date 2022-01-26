@@ -15,6 +15,7 @@ const additionalButtons = [...document.getElementsByClassName("lightgrey")];
 const allButtons = document.querySelectorAll("button");
 const equalsButton = document.getElementById("equal");
 const additionalFunctions = [...document.getElementsByClassName("extraFunctions")];
+const memoryButtons = [...document.getElementsByClassName("memory")];
 
 // Function to display output to main display & run once on open page
 
@@ -95,6 +96,17 @@ const factorialCalc = (num) => {
   }
 }
 
+// To calculate the output
+
+const outputCalc = () => {
+  fullString += currentNumber + " =";
+  smallDisplay();
+  numberVals.push(currentNumber);
+  specialFunctionsChecker();
+  calculate();
+  displayOutput(outputNumber);
+}
+
 // Adds preventDefault to all buttons
 
 for(let i= 0; i< allButtons.length; i++) {
@@ -156,12 +168,7 @@ for (let i = 0; i < additionalFunctions.length; i++) {
 
 equalsButton.addEventListener("click", (event) => {
   if(currentNumber != "") {
-    fullString += currentNumber + " =";
-    smallDisplay();
-    numberVals.push(currentNumber);
-    specialFunctionsChecker();
-    calculate();
-    displayOutput(outputNumber);
+    outputCalc();
   } else {
     alert("Please ensure the amount of operations and numbers match up!");
   }
@@ -193,12 +200,12 @@ const calculate = () => {
 
 for(let i = 0; i < additionalButtons.length; i++) {
   additionalButtons[i].addEventListener("click", (event) => {
-    if(additionalButtons[i].id == "remove") {
+    if(additionalButtons[i].id === "remove") {
       clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
-    } else if(additionalButtons[i].id == "percent") {
+    } else if(additionalButtons[i].id === "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
       currentNumber = (Number(currentNumber)/100).toString();
-    } else if(additionalButtons[i].id == "plusMinus") {
+    } else if(additionalButtons[i].id === "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
         if(currentNumber.charAt(0) !== "-"){
           currentNumber = "-" + currentNumber;
@@ -208,5 +215,18 @@ for(let i = 0; i < additionalButtons.length; i++) {
     }
     displayOutput(outputNumber);
     smallDisplay();
+  })
+}
+
+for(let i = 0; i< memoryButtons.length; i++) {
+  memoryButtons[i].addEventListener("click", (event) => {
+    if(memoryButtons[i].id === "memoryPlus") {
+      outputCalc();
+      memory = outputNumber;
+    } else if(memoryButtons[i].id === "memoryMinus") {
+      memory = 0;
+    } else if(memoryButtons[i].id === "memory") {
+      currentNumber = String(memory);
+    }
   })
 }

@@ -25,7 +25,9 @@ var additionalButtons = _toConsumableArray(document.getElementsByClassName("ligh
 var allButtons = document.querySelectorAll("button");
 var equalsButton = document.getElementById("equal");
 
-var additionalFunctions = _toConsumableArray(document.getElementsByClassName("extraFunctions")); // Function to display output to main display & run once on open page
+var additionalFunctions = _toConsumableArray(document.getElementsByClassName("extraFunctions"));
+
+var memoryButtons = _toConsumableArray(document.getElementsByClassName("memory")); // Function to display output to main display & run once on open page
 
 
 var displayOutput = function displayOutput(numberToDisplay) {
@@ -97,6 +99,16 @@ var factorialCalc = function factorialCalc(num) {
   if (num < 0) return -1;else if (num == 0) return 1;else {
     return num * factorialCalc(num - 1);
   }
+}; // To calculate the output
+
+
+var outputCalc = function outputCalc() {
+  fullString += currentNumber + " =";
+  smallDisplay();
+  numberVals.push(currentNumber);
+  specialFunctionsChecker();
+  calculate();
+  displayOutput(outputNumber);
 }; // Adds preventDefault to all buttons
 
 
@@ -169,12 +181,7 @@ for (var _i3 = 0; _i3 < additionalFunctions.length; _i3++) {
 
 equalsButton.addEventListener("click", function (event) {
   if (currentNumber != "") {
-    fullString += currentNumber + " =";
-    smallDisplay();
-    numberVals.push(currentNumber);
-    specialFunctionsChecker();
-    calculate();
-    displayOutput(outputNumber);
+    outputCalc();
   } else {
     alert("Please ensure the amount of operations and numbers match up!");
   }
@@ -204,12 +211,12 @@ var calculate = function calculate() {
 
 var _loop4 = function _loop4(_i5) {
   additionalButtons[_i5].addEventListener("click", function (event) {
-    if (additionalButtons[_i5].id == "remove") {
+    if (additionalButtons[_i5].id === "remove") {
       clearValues(["currentNumber", "outputNumber", "numberVals", "operationVals", "fullString"]);
-    } else if (additionalButtons[_i5].id == "percent") {
+    } else if (additionalButtons[_i5].id === "percent") {
       outputNumber = document.getElementById("output__big").innerHTML * 0.01;
       currentNumber = (Number(currentNumber) / 100).toString();
-    } else if (additionalButtons[_i5].id == "plusMinus") {
+    } else if (additionalButtons[_i5].id === "plusMinus") {
       outputNumber = document.getElementById("output__big").innerHTML * -1;
 
       if (currentNumber.charAt(0) !== "-") {
@@ -226,4 +233,21 @@ var _loop4 = function _loop4(_i5) {
 
 for (var _i5 = 0; _i5 < additionalButtons.length; _i5++) {
   _loop4(_i5);
+}
+
+var _loop5 = function _loop5(_i6) {
+  memoryButtons[_i6].addEventListener("click", function (event) {
+    if (memoryButtons[_i6].id === "memoryPlus") {
+      outputCalc();
+      memory = outputNumber;
+    } else if (memoryButtons[_i6].id === "memoryMinus") {
+      memory = 0;
+    } else if (memoryButtons[_i6].id === "memory") {
+      currentNumber = String(memory);
+    }
+  });
+};
+
+for (var _i6 = 0; _i6 < memoryButtons.length; _i6++) {
+  _loop5(_i6);
 }
