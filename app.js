@@ -25,8 +25,7 @@ const memoryButtons = [...document.getElementsByClassName("memory")];
 // Function to display output to main display & run once on open page
 
 const displayOutput = (numberToDisplay) => {
-  document.getElementById("output__big").innerHTML =
-    numberToDisplay.toLocaleString();
+  document.getElementById("output__big").innerHTML = numberToDisplay.toLocaleString();
 };
 
 displayOutput(0);
@@ -110,8 +109,12 @@ const factorialCalc = (num) => {
 
 // To calculate the output
 
-const outputCalc = () => {
-  fullString += currentNumber + " =";
+const outputCalc = (useCurrent) => {
+  if(useCurrent) {
+    fullString += currentNumber + " =";
+  } else {
+    fullString += " =";
+  }
   smallDisplay();
   numberVals.push(currentNumber);
   console.log(numberVals);
@@ -178,6 +181,13 @@ for (let i = 0; i < basicFunctions.length; i++) {
       displayOutput(bracketNumsTemp);
       smallDisplay();
       clearValues(["bracketNumsTemp"]);
+    } else if(fullString.charAt(fullString.length-1) == ")"){
+      numberVals.push(currentNumber);
+      operationVals.push(basicFunctions[i].innerHTML);
+      fullString += basicFunctions[i].innerHTML;
+      displayOutput(currentNumber);
+      smallDisplay();
+      clearValues(["currentNumber"]);
     } else {
       numberVals.push(currentNumber);
       operationVals.push(basicFunctions[i].innerHTML);
@@ -201,7 +211,7 @@ for (let i = 0; i < additionalFunctions.length; i++) {
       currentNumber = String(memory);
       displayOutput(currentNumber);
     } else if (funcsInnerHtml === "M+") {
-      outputCalc();
+      outputCalc(true);
       memory = outputNumber;
     } else if (funcsInnerHtml === "(" && !isBracketActive && currentNumber === "") {
       isBracketActive = true;
@@ -237,9 +247,12 @@ for (let i = 0; i < additionalFunctions.length; i++) {
 // Adds function addEventListener to equals button
 
 equalsButton.addEventListener("click", (event) => {
-  if (currentNumber != "" || fullString[fullString.length-1] == ")") {
-    outputCalc();
-  } else {
+  if (currentNumber != "" && fullString[fullString.length-1] !== ")") {
+    outputCalc(true);
+  } else if(currentNumber != "" && fullString[fullString.length-1] == ")") {
+    outputCalc(false);
+  }
+  else {
     alert("Please ensure the amount of operations and numbers match up!");
   }
 });

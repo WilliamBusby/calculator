@@ -123,8 +123,13 @@ var factorialCalc = function factorialCalc(num) {
 }; // To calculate the output
 
 
-var outputCalc = function outputCalc() {
-  fullString += currentNumber + " =";
+var outputCalc = function outputCalc(useCurrent) {
+  if (useCurrent) {
+    fullString += currentNumber + " =";
+  } else {
+    fullString += " =";
+  }
+
   smallDisplay();
   numberVals.push(currentNumber);
   console.log(numberVals);
@@ -195,6 +200,13 @@ var _loop2 = function _loop2(_i3) {
       displayOutput(bracketNumsTemp);
       smallDisplay();
       clearValues(["bracketNumsTemp"]);
+    } else if (fullString.charAt(fullString.length - 1) == ")") {
+      numberVals.push(currentNumber);
+      operationVals.push(basicFunctions[_i3].innerHTML);
+      fullString += basicFunctions[_i3].innerHTML;
+      displayOutput(currentNumber);
+      smallDisplay();
+      clearValues(["currentNumber"]);
     } else {
       numberVals.push(currentNumber);
       operationVals.push(basicFunctions[_i3].innerHTML);
@@ -223,7 +235,7 @@ var _loop3 = function _loop3(_i4) {
       currentNumber = String(memory);
       displayOutput(currentNumber);
     } else if (funcsInnerHtml === "M+") {
-      outputCalc();
+      outputCalc(true);
       memory = outputNumber;
     } else if (funcsInnerHtml === "(" && !isBracketActive && currentNumber === "") {
       isBracketActive = true;
@@ -259,8 +271,10 @@ for (var _i4 = 0; _i4 < additionalFunctions.length; _i4++) {
 
 
 equalsButton.addEventListener("click", function (event) {
-  if (currentNumber != "" || fullString[fullString.length - 1] == ")") {
-    outputCalc();
+  if (currentNumber != "" && fullString[fullString.length - 1] !== ")") {
+    outputCalc(true);
+  } else if (currentNumber != "" && fullString[fullString.length - 1] == ")") {
+    outputCalc(false);
   } else {
     alert("Please ensure the amount of operations and numbers match up!");
   }
