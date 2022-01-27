@@ -138,7 +138,7 @@ var outputCalc = function outputCalc(useCurrent) {
   console.log(numberVals);
   specialFunctionsChecker(numberVals);
 
-  if (isBodmasUsed) {
+  if (!isBodmasUsed) {
     var _calculate = calculate(numberVals, operationVals, outputNumber, ["currentNumber", "numberVals", "operationVals", "fullString"]);
 
     var _calculate2 = _slicedToArray(_calculate, 3);
@@ -159,7 +159,7 @@ var bracketCalc = function bracketCalc() {
   smallDisplay();
   specialFunctionsChecker(bracketNums);
 
-  if (isBodmasUsed) {
+  if (!isBodmasUsed) {
     var _calculate3 = calculate(bracketNums, bracketOps, bracketOutput, ["bracketNumsTemp", "bracketNums", "bracketOps"]);
 
     var _calculate4 = _slicedToArray(_calculate3, 3);

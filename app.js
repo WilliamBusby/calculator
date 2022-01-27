@@ -122,7 +122,7 @@ const outputCalc = (useCurrent) => {
   numberVals.push(currentNumber);
   console.log(numberVals);
   specialFunctionsChecker(numberVals);
-  if(isBodmasUsed) {
+  if(!isBodmasUsed) {
     [numberVals, operationVals, outputNumber] = calculate(
       numberVals,
       operationVals,
@@ -141,7 +141,7 @@ const bracketCalc = () => {
   bracketNums.push(bracketNumsTemp);
   smallDisplay();
   specialFunctionsChecker(bracketNums);
-  if(isBodmasUsed) {
+  if(!isBodmasUsed) {
     [bracketNums, bracketOps, bracketOutput] = calculate(
       bracketNums,
       bracketOps,
