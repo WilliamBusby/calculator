@@ -11,6 +11,7 @@ let bracketOps = [];
 let bracketOutput = 0;
 let isBracketActive = false;
 let bracketNumsTemp = "";
+let isBodmasUsed = false;
 
 // Getting information from HTML document
 
@@ -21,6 +22,8 @@ const allButtons = document.querySelectorAll("button");
 const equalsButton = document.getElementById("equal");
 const additionalFunctions = [...document.getElementsByClassName("extraFunctions")];
 const memoryButtons = [...document.getElementsByClassName("memory")];
+const changeType = document.getElementById("changeToBodmas");
+const whatType = document.getElementById("bodmasOrLtr");
 
 // Function to display output to main display & run once on open page
 
@@ -119,12 +122,16 @@ const outputCalc = (useCurrent) => {
   numberVals.push(currentNumber);
   console.log(numberVals);
   specialFunctionsChecker(numberVals);
-  [numberVals, operationVals, outputNumber] = calculate(
-    numberVals,
-    operationVals,
-    outputNumber,
-    ["currentNumber", "numberVals", "operationVals", "fullString"]
-  );
+  if(isBodmasUsed) {
+    [numberVals, operationVals, outputNumber] = calculate(
+      numberVals,
+      operationVals,
+      outputNumber,
+      ["currentNumber", "numberVals", "operationVals", "fullString"]
+    );
+  } else {
+    outputNumber = bodmasCalculator(numberVals, operationVals, ["currentNumber", "numberVals", "operationVals", "fullString"])
+  }
   displayOutput(outputNumber);
 };
 
@@ -134,12 +141,16 @@ const bracketCalc = () => {
   bracketNums.push(bracketNumsTemp);
   smallDisplay();
   specialFunctionsChecker(bracketNums);
-  [bracketNums, bracketOps, bracketOutput] = calculate(
-    bracketNums,
-    bracketOps,
-    bracketOutput,
-    ["bracketNumsTemp", "bracketNums", "bracketOps"]
-  );
+  if(isBodmasUsed) {
+    [bracketNums, bracketOps, bracketOutput] = calculate(
+      bracketNums,
+      bracketOps,
+      bracketOutput,
+      ["bracketNumsTemp", "bracketNums", "bracketOps"]
+    );
+  } else {
+    bracketOutput = bodmasCalculator(numberVals, operationVals, ["bracketNumsTemp", "bracketNums", "bracketOps"])
+  }
 };
 
 // Adds preventDefault to all buttons
@@ -213,6 +224,16 @@ for (let i = 0; i < additionalFunctions.length; i++) {
     } else if (funcsInnerHtml === "M+") {
       outputCalc(true);
       memory = outputNumber;
+    } else if(funcsInnerHtml === "Type"){
+        if(isBodmasUsed) {
+          isBodmasUsed = false;
+          document.getElementById("bodmasOrLtr").innerHTML = "LTR";
+        } else {
+          isBodmasUsed = true;
+          document.getElementById("bodmasOrLtr").innerHTML = "BODMAS";
+        }
+    } else if(funcsInnerHtml === "LTR" || funcsInnerHtml === "BODMAS") {
+      alert("Please use the button above to change type.");
     } else if (funcsInnerHtml === "(" && !isBracketActive && currentNumber === "") {
       isBracketActive = true;
       bracketOutput = 0;
@@ -260,7 +281,6 @@ equalsButton.addEventListener("click", (event) => {
 // Calculate function used within equals
 
 const calculate = (numberArr, operationsArr, outputValue, valsToClear) => {
-  console.log()
   outputValue = Number(numberArr[0]);
   for (let i = 1; i < numberArr.length; i++) {
     if (operationsArr[i - 1] == "+") {
@@ -311,4 +331,31 @@ for (let i = 0; i < additionalButtons.length; i++) {
     displayOutput(outputNumber);
     smallDisplay();
   });
+}
+
+// BODMAS calculator
+
+const bodmasCalculator = (numberArr, operationArr, valsToClear) => {
+  const numberArrReduced = [...numberArr];
+  const operationArrReduced = [...operationArr];
+  let index = 0;
+  while(numberArrReduced.length > 1) {
+    if(operationArrReduced.includes("/")) {
+      index = operationArrReduced.indexOf("/");
+      numberArrReduced[index] = Number(numberArrReduced[index]) / Number(numberArrReduced[index + 1]);
+    } else if(operationArrReduced.includes("*")) {
+      index = operationArrReduced.indexOf("*");
+      numberArrReduced[index] = Number(numberArrReduced[index]) * Number(numberArrReduced[index + 1]);
+    } else if(operationArrReduced.includes("+")) {
+      index = operationArrReduced.indexOf("+");
+      numberArrReduced[index] = Number(numberArrReduced[index]) + Number(numberArrReduced[index + 1]);
+    } else if(operationArrReduced.includes("-")) {
+      index = operationArrReduced.indexOf("-");
+      numberArrReduced[index] = Number(numberArrReduced[index]) - Number(numberArrReduced[index + 1]);
+    }
+    operationArrReduced.splice(index, 1);
+    numberArrReduced.splice(index + 1, 1);
+  } 
+  clearValues(valsToClear);
+  return numberArrReduced[0];
 }

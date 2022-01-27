@@ -27,7 +27,8 @@ var bracketNums = [];
 var bracketOps = [];
 var bracketOutput = 0;
 var isBracketActive = false;
-var bracketNumsTemp = ""; // Getting information from HTML document
+var bracketNumsTemp = "";
+var isBodmasUsed = false; // Getting information from HTML document
 
 var numberButtonsArr = _toConsumableArray(document.getElementsByClassName("numbers"));
 
@@ -40,8 +41,10 @@ var equalsButton = document.getElementById("equal");
 
 var additionalFunctions = _toConsumableArray(document.getElementsByClassName("extraFunctions"));
 
-var memoryButtons = _toConsumableArray(document.getElementsByClassName("memory")); // Function to display output to main display & run once on open page
+var memoryButtons = _toConsumableArray(document.getElementsByClassName("memory"));
 
+var changeType = document.getElementById("changeToBodmas");
+var whatType = document.getElementById("bodmasOrLtr"); // Function to display output to main display & run once on open page
 
 var displayOutput = function displayOutput(numberToDisplay) {
   document.getElementById("output__big").innerHTML = numberToDisplay.toLocaleString();
@@ -135,13 +138,18 @@ var outputCalc = function outputCalc(useCurrent) {
   console.log(numberVals);
   specialFunctionsChecker(numberVals);
 
-  var _calculate = calculate(numberVals, operationVals, outputNumber, ["currentNumber", "numberVals", "operationVals", "fullString"]);
+  if (isBodmasUsed) {
+    var _calculate = calculate(numberVals, operationVals, outputNumber, ["currentNumber", "numberVals", "operationVals", "fullString"]);
 
-  var _calculate2 = _slicedToArray(_calculate, 3);
+    var _calculate2 = _slicedToArray(_calculate, 3);
 
-  numberVals = _calculate2[0];
-  operationVals = _calculate2[1];
-  outputNumber = _calculate2[2];
+    numberVals = _calculate2[0];
+    operationVals = _calculate2[1];
+    outputNumber = _calculate2[2];
+  } else {
+    outputNumber = bodmasCalculator(numberVals, operationVals, ["currentNumber", "numberVals", "operationVals", "fullString"]);
+  }
+
   displayOutput(outputNumber);
 }; // To calculate within brackets
 
@@ -151,13 +159,17 @@ var bracketCalc = function bracketCalc() {
   smallDisplay();
   specialFunctionsChecker(bracketNums);
 
-  var _calculate3 = calculate(bracketNums, bracketOps, bracketOutput, ["bracketNumsTemp", "bracketNums", "bracketOps"]);
+  if (isBodmasUsed) {
+    var _calculate3 = calculate(bracketNums, bracketOps, bracketOutput, ["bracketNumsTemp", "bracketNums", "bracketOps"]);
 
-  var _calculate4 = _slicedToArray(_calculate3, 3);
+    var _calculate4 = _slicedToArray(_calculate3, 3);
 
-  bracketNums = _calculate4[0];
-  bracketOps = _calculate4[1];
-  bracketOutput = _calculate4[2];
+    bracketNums = _calculate4[0];
+    bracketOps = _calculate4[1];
+    bracketOutput = _calculate4[2];
+  } else {
+    bracketOutput = bodmasCalculator(numberVals, operationVals, ["bracketNumsTemp", "bracketNums", "bracketOps"]);
+  }
 }; // Adds preventDefault to all buttons
 
 
@@ -237,6 +249,16 @@ var _loop3 = function _loop3(_i4) {
     } else if (funcsInnerHtml === "M+") {
       outputCalc(true);
       memory = outputNumber;
+    } else if (funcsInnerHtml === "Type") {
+      if (isBodmasUsed) {
+        isBodmasUsed = false;
+        document.getElementById("bodmasOrLtr").innerHTML = "LTR";
+      } else {
+        isBodmasUsed = true;
+        document.getElementById("bodmasOrLtr").innerHTML = "BODMAS";
+      }
+    } else if (funcsInnerHtml === "LTR" || funcsInnerHtml === "BODMAS") {
+      alert("Please use the button above to change type.");
     } else if (funcsInnerHtml === "(" && !isBracketActive && currentNumber === "") {
       isBracketActive = true;
       bracketOutput = 0;
@@ -281,7 +303,6 @@ equalsButton.addEventListener("click", function (event) {
 }); // Calculate function used within equals
 
 var calculate = function calculate(numberArr, operationsArr, outputValue, valsToClear) {
-  console.log();
   outputValue = Number(numberArr[0]);
 
   for (var _i5 = 1; _i5 < numberArr.length; _i5++) {
@@ -329,4 +350,35 @@ var _loop4 = function _loop4(_i6) {
 
 for (var _i6 = 0; _i6 < additionalButtons.length; _i6++) {
   _loop4(_i6);
-}
+} // BODMAS calculator
+
+
+var bodmasCalculator = function bodmasCalculator(numberArr, operationArr, valsToClear) {
+  var numberArrReduced = _toConsumableArray(numberArr);
+
+  var operationArrReduced = _toConsumableArray(operationArr);
+
+  var index = 0;
+
+  while (numberArrReduced.length > 1) {
+    if (operationArrReduced.includes("/")) {
+      index = operationArrReduced.indexOf("/");
+      numberArrReduced[index] = Number(numberArrReduced[index]) / Number(numberArrReduced[index + 1]);
+    } else if (operationArrReduced.includes("*")) {
+      index = operationArrReduced.indexOf("*");
+      numberArrReduced[index] = Number(numberArrReduced[index]) * Number(numberArrReduced[index + 1]);
+    } else if (operationArrReduced.includes("+")) {
+      index = operationArrReduced.indexOf("+");
+      numberArrReduced[index] = Number(numberArrReduced[index]) + Number(numberArrReduced[index + 1]);
+    } else if (operationArrReduced.includes("-")) {
+      index = operationArrReduced.indexOf("-");
+      numberArrReduced[index] = Number(numberArrReduced[index]) - Number(numberArrReduced[index + 1]);
+    }
+
+    operationArrReduced.splice(index, 1);
+    numberArrReduced.splice(index + 1, 1);
+  }
+
+  clearValues(valsToClear);
+  return numberArrReduced[0];
+};
