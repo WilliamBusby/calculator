@@ -120,7 +120,11 @@ var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber
 };
 
 var factorialCalc = function factorialCalc(num) {
-  if (num < 0) return -1;else if (num == 0) return 1;else {
+  if (num < 0) {
+    return -1;
+  } else if (num == 0) {
+    return 1;
+  } else {
     return num * factorialCalc(num - 1);
   }
 }; // To calculate the output
