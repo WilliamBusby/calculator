@@ -96,6 +96,9 @@ var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber
   if (inputNumber.includes("!")) {
     inputNumberNoAlpha = inputNumber.replace("!", "");
     outputNumber = factorialCalc(inputNumberNoAlpha);
+  } else if (inputNumber.includes("e^")) {
+    inputNumberNoAlpha = inputNumber.replace("e^", "");
+    outputNumber = Math.pow(Math.E, inputNumberNoAlpha);
   } else if (inputNumber.includes("^2")) {
     inputNumberNoAlpha = inputNumber.replace("^2", "");
     outputNumber = Math.pow(inputNumberNoAlpha, 2);
@@ -111,9 +114,6 @@ var specialFunctionsCalculator = function specialFunctionsCalculator(inputNumber
   } else if (inputNumber.includes("10^")) {
     inputNumberNoAlpha = inputNumber.replace("10^", "");
     outputNumber = Math.pow(10, inputNumberNoAlpha);
-  } else if (inputNumber.includes("e^")) {
-    inputNumberNoAlpha = inputNumber.replace("e^", "");
-    outputNumber = Math.pow(Math.E, inputNumberNoAlpha);
   }
 
   return outputNumber;
@@ -139,7 +139,6 @@ var outputCalc = function outputCalc(useCurrent) {
 
   smallDisplay();
   numberVals.push(currentNumber);
-  console.log(numberVals);
   specialFunctionsChecker(numberVals);
 
   if (!isBodmasUsed) {
