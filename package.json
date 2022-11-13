@@ -1,0 +1,22 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Calculator that works using Javascript functions and eventListeners for each of the buttons.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamBusby/calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WilliamBusby/calculator/issues"
+  },
+  "homepage": "https://github.com/WilliamBusby/calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.4.1"
+  }
+}
